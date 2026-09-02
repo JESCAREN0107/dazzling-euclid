@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   ShieldCheck, Lock, LogOut, Calendar, Clock, User, Phone, CheckCircle2, 
   XCircle, AlertCircle, Trash2, Search, Plus, Sparkles, DollarSign,
-  TrendingUp, Database, ArrowLeft, MessageCircle, RefreshCw, ExternalLink
+  TrendingUp, Database, ArrowLeft, MessageCircle, RefreshCw, ExternalLink,
+  Edit3, SlidersHorizontal, Check
 } from 'lucide-react';
 import { useAdminController } from '../../controllers/useAdminController';
-import { AppointmentStatus, Service } from '../../models/types';
+import { AppointmentStatus, Service, Appointment } from '../../models/types';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { BUSINESS_CONFIG } from '../../config/business.config';
+import { EditAppointmentModal } from './EditAppointmentModal';
+import { EditServiceModal } from './EditServiceModal';
 
 interface AdminDashboardViewProps {
   onBackToPublic: () => void;
@@ -16,8 +19,6 @@ interface AdminDashboardViewProps {
 
 export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onBackToPublic }) => {
   const admin = useAdminController();
-  const [newServiceModalOpen, setNewServiceModalOpen] = useState(false);
-  const [editingService, setEditingService] = useState<Service | null>(null);
 
   // ============================================================
   // PANTALLA DE LOGIN CON PIN
@@ -119,7 +120,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onBackTo
             <button
               onClick={admin.reload}
               className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs flex items-center gap-1.5"
-              title="Recargar citas"
+              title="Recargar citas y servicios"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Actualizar</span>
@@ -179,73 +180,58 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onBackTo
               <div className="text-3xl font-bold text-slate-900 mt-1">
                 ${admin.metrics.totalRevenueMXN.toLocaleString('es-MX')}
               </div>
-              <span className="text-xs text-spa-600 font-semibold mt-1 block">MXN en agenda</span>
+              <span className="text-xs text-slate-500 mt-1 block">Ticket Prom: ${admin.metrics.averageTicketMXN.toLocaleString('es-MX')} MXN</span>
             </div>
             <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
               <DollarSign className="w-6 h-6" />
             </div>
           </div>
 
-          {/* Card 4: Ticket Promedio */}
+          {/* Card 4: Base de Datos */}
           <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex items-center justify-between">
             <div>
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Ticket Promedio</span>
-              <div className="text-3xl font-bold text-slate-900 mt-1">
-                ${admin.metrics.averageTicketMXN.toLocaleString('es-MX')}
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Base de Datos</span>
+              <div className="text-sm font-bold text-slate-900 mt-1 flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse" />
+                <span>Supabase Cloud</span>
               </div>
-              <span className="text-xs text-slate-500 mt-1 block">MXN por servicio</span>
+              <span className="text-xs text-slate-500 mt-1 block">Sincronización en tiempo real</span>
             </div>
-            <div className="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
-              <TrendingUp className="w-6 h-6" />
+            <div className="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center">
+              <Database className="w-6 h-6" />
             </div>
           </div>
 
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="bg-white rounded-2xl p-2 border border-slate-200 shadow-sm flex flex-wrap gap-2">
-          <button
-            onClick={() => admin.setActiveTab('citas')}
-            className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-              admin.activeTab === 'citas'
-                ? 'bg-spa-600 text-white shadow-sm'
-                : 'text-slate-600 hover:bg-slate-100'
-            }`}
-          >
-            Agenda de Citas ({admin.allAppointmentsCount})
-          </button>
-
-          <button
-            onClick={() => admin.setActiveTab('servicios')}
-            className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-              admin.activeTab === 'servicios'
-                ? 'bg-spa-600 text-white shadow-sm'
-                : 'text-slate-600 hover:bg-slate-100'
-            }`}
-          >
-            Catálogo & Precios ({admin.services.length})
-          </button>
-
-          <button
-            onClick={() => admin.setActiveTab('configuracion')}
-            className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-1.5 ${
-              admin.activeTab === 'configuracion'
-                ? 'bg-spa-600 text-white shadow-sm'
-                : 'text-slate-600 hover:bg-slate-100'
-            }`}
-          >
-            <Database className="w-4 h-4" />
-            <span>Nube Supabase</span>
-            {admin.isSupabaseConfigured ? (
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            ) : (
-              <span className="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">Local</span>
-            )}
-          </button>
+        {/* Tab Selector */}
+        <div className="flex border-b border-slate-200 space-x-8">
+          {[
+            { id: 'citas', label: `Agenda de Citas (${admin.allAppointmentsCount})`, icon: Calendar },
+            { id: 'servicios', label: `Catálogo de Tratamientos (${admin.services.length})`, icon: Sparkles },
+            { id: 'configuracion', label: 'Estado Supabase & Nube', icon: Database }
+          ].map((tab) => {
+            const Icon = tab.icon;
+            const isActive = admin.activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => admin.setActiveTab(tab.id as any)}
+                className={`pb-4 text-sm font-bold flex items-center gap-2 border-b-2 transition-colors ${
+                  isActive
+                    ? 'border-spa-600 text-spa-700'
+                    : 'border-transparent text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* ============================================================ */}
-        {/* TAB 1: GESTIÓN DE CITAS */}
+        {/* TAB 1: AGENDA DE CITAS */}
         {/* ============================================================ */}
         {admin.activeTab === 'citas' && (
           <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden space-y-6 p-6">
@@ -339,7 +325,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onBackTo
                             <span>{apt.customerPhone}</span>
                           </div>
                           {apt.customerNotes && (
-                            <div className="text-[10px] text-spa-700 bg-spa-50 px-2 py-0.5 rounded mt-1 max-w-xs">
+                            <div className="text-[10px] text-spa-700 bg-spa-50 px-2 py-0.5 rounded mt-1 max-w-xs truncate" title={apt.customerNotes}>
                               Nota: {apt.customerNotes}
                             </div>
                           )}
@@ -376,15 +362,24 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onBackTo
                         <td className="py-4 px-4 text-right">
                           <div className="flex items-center justify-end gap-1.5">
                             
+                            {/* Botón Editar y Reasignar */}
+                            <button
+                              onClick={() => admin.setEditingAppointment(apt)}
+                              className="p-1.5 rounded-lg text-spa-700 hover:bg-spa-50 border border-spa-200 bg-white"
+                              title="Editar y Reasignar Cita"
+                            >
+                              <Edit3 className="w-3.5 h-3.5" />
+                            </button>
+
                             {/* WhatsApp to client */}
                             <a
                               href={clientWaUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="p-1.5 rounded-lg text-emerald-600 hover:bg-emerald-50 border border-emerald-200"
+                              className="p-1.5 rounded-lg text-emerald-600 hover:bg-emerald-50 border border-emerald-200 bg-white"
                               title="Enviar WhatsApp a la clienta"
                             >
-                              <MessageCircle className="w-4 h-4 fill-emerald-100" />
+                              <MessageCircle className="w-3.5 h-3.5 fill-emerald-100" />
                             </a>
 
                             {/* Status changer buttons */}
@@ -414,7 +409,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onBackTo
                                 className="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50"
                                 title="Cancelar Cita"
                               >
-                                <XCircle className="w-4 h-4" />
+                                <XCircle className="w-3.5 h-3.5" />
                               </button>
                             )}
 
@@ -423,7 +418,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onBackTo
                               className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50"
                               title="Eliminar registro"
                             >
-                              <Trash2 className="w-4 h-4" />
+                              <Trash2 className="w-3.5 h-3.5" />
                             </button>
 
                           </div>
@@ -452,55 +447,95 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onBackTo
         {admin.activeTab === 'servicios' && (
           <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-6">
             
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h3 className="font-serif text-xl font-bold text-slate-900">
                   Catálogo de Tratamientos y Precios en MXN
                 </h3>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Puedes activar, desactivar o modificar los precios de cada facial en tiempo real.
+                  Puedes editar descripciones, cambiar precios, agregar nuevos faciales o pausarlos en la web.
                 </p>
               </div>
+
+              <Button
+                type="button"
+                variant="primary"
+                size="sm"
+                onClick={() => {
+                  admin.setEditingService(null);
+                  admin.setIsNewServiceModalOpen(true);
+                }}
+                icon={<Plus className="w-4 h-4" />}
+              >
+                Nuevo Tratamiento
+              </Button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {admin.services.map((srv) => (
                 <div
                   key={srv.id}
-                  className={`p-4 rounded-2xl border transition-all flex items-start justify-between gap-4 ${
-                    srv.active ? 'bg-white border-slate-200' : 'bg-slate-50 border-slate-200 opacity-60'
+                  className={`p-4 rounded-2xl border transition-all flex flex-col justify-between gap-3 ${
+                    srv.active ? 'bg-white border-slate-200 shadow-sm' : 'bg-slate-50 border-slate-200 opacity-65'
                   }`}
                 >
                   <div className="flex items-start gap-3">
                     <img
                       src={srv.imageUrl}
                       alt={srv.name}
-                      className="w-14 h-14 rounded-xl object-cover border border-slate-200 bg-slate-100 flex-shrink-0"
+                      className="w-16 h-16 rounded-xl object-cover border border-slate-200 bg-slate-100 flex-shrink-0"
                     />
-                    <div>
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <h4 className="font-bold text-sm text-slate-900">{srv.name}</h4>
+                        <h4 className="font-bold text-sm text-slate-900 truncate">{srv.name}</h4>
                         {srv.popular && <Badge variant="gold" size="sm">Top</Badge>}
                       </div>
-                      <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">{srv.shortDescription}</p>
+                      <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{srv.shortDescription}</p>
+                      
                       <div className="flex items-center gap-3 mt-2 text-xs">
-                        <span className="font-bold text-spa-700">${srv.priceMXN.toLocaleString('es-MX')} MXN</span>
-                        <span className="text-slate-400">•</span>
+                        <span className="font-bold text-spa-700 text-sm">${srv.priceMXN.toLocaleString('es-MX')} MXN</span>
+                        <span className="text-slate-300">•</span>
                         <span className="text-slate-600">{srv.durationMinutes} min</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                    <button
-                      onClick={() => admin.handleToggleService(srv.id)}
-                      className={`text-xs px-3 py-1 rounded-full font-semibold transition-colors ${
-                        srv.active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'
-                      }`}
-                    >
-                      {srv.active ? 'Activo' : 'Pausado'}
-                    </button>
+                  {/* Acciones del tratamiento */}
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => admin.handleToggleService(srv.id)}
+                        className={`text-xs px-3 py-1 rounded-full font-semibold transition-colors ${
+                          srv.active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'
+                        }`}
+                      >
+                        {srv.active ? 'Activo en Web' : 'Pausado'}
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => {
+                          admin.setEditingService(srv);
+                          admin.setIsNewServiceModalOpen(true);
+                        }}
+                        className="p-1.5 rounded-lg text-slate-600 hover:text-spa-700 hover:bg-spa-50 border border-slate-200 text-xs font-semibold flex items-center gap-1"
+                        title="Editar Tratamiento"
+                      >
+                        <Edit3 className="w-3.5 h-3.5" />
+                        <span>Editar</span>
+                      </button>
+
+                      <button
+                        onClick={() => admin.handleDeleteService(srv.id)}
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50"
+                        title="Eliminar del catálogo"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
+
                 </div>
               ))}
             </div>
@@ -531,36 +566,52 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onBackTo
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-bold text-slate-700">Estado de Conexión:</span>
-                {admin.isSupabaseConfigured ? (
-                  <Badge variant="success">✦ Conectado a Supabase Cloud</Badge>
-                ) : (
-                  <Badge variant="warning">Modo Local Reactivo (LocalStorage Activo)</Badge>
-                )}
+                <Badge variant="success">✦ Conectado a Supabase Cloud (ffyypfqbixdyanxporxt)</Badge>
               </div>
               <p className="text-xs text-slate-600 leading-relaxed">
-                El sistema ya funciona al 100% de manera autónoma guardando citas y servicios de manera instantánea.
+                Todas las citas agendadas por clientas en la web pública o modificadas por los dueños se guardan de forma instantánea en la nube de Supabase.
               </p>
             </div>
 
-            <div className="space-y-3 text-xs text-slate-700">
-              <h4 className="font-bold text-sm text-slate-900">¿Cómo conectar tu propio proyecto de Supabase en 2 minutos?</h4>
-              <ol className="list-decimal list-inside space-y-1.5 text-slate-600">
-                <li>Crea una cuenta gratis en <strong>supabase.com</strong> y crea un nuevo proyecto.</li>
-                <li>Ve a la pestaña <strong>SQL Editor</strong> y pega el archivo <code className="bg-slate-100 px-1 py-0.5 rounded text-spa-600">src/services/schema.sql</code>.</li>
-                <li>Copia la <strong>Project URL</strong> y la <strong>anon public API Key</strong>.</li>
-                <li>Crea un archivo <code className="bg-slate-100 px-1 py-0.5 rounded text-spa-600">.env</code> en la raíz del proyecto con:</li>
-              </ol>
-
-              <pre className="bg-slate-900 text-slate-200 p-4 rounded-xl text-xs overflow-x-auto">
-{`VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
-VITE_SUPABASE_ANON_KEY=tu-clave-anon-aqui`}
-              </pre>
+            <div className="space-y-2 text-xs text-slate-600">
+              <div className="flex items-center justify-between p-3 rounded-xl bg-slate-100">
+                <span className="font-semibold">Tratamientos sincronizados:</span>
+                <span className="font-bold text-slate-900">{admin.services.length} tratamientos</span>
+              </div>
+              <div className="flex items-center justify-between p-3 rounded-xl bg-slate-100">
+                <span className="font-semibold">Citas registradas:</span>
+                <span className="font-bold text-slate-900">{admin.allAppointmentsCount} citas</span>
+              </div>
             </div>
 
           </div>
         )}
 
       </div>
+
+      {/* ============================================================ */}
+      {/* MODAL DE EDICIÓN Y REASIGNACIÓN DE CITA */}
+      {/* ============================================================ */}
+      <EditAppointmentModal
+        appointment={admin.editingAppointment}
+        services={admin.services}
+        onClose={() => admin.setEditingAppointment(null)}
+        onSave={admin.handleSaveAppointment}
+      />
+
+      {/* ============================================================ */}
+      {/* MODAL DE CREACIÓN Y EDICIÓN DE TRATAMIENTO */}
+      {/* ============================================================ */}
+      <EditServiceModal
+        service={admin.editingService}
+        isOpen={admin.isNewServiceModalOpen || !!admin.editingService}
+        onClose={() => {
+          admin.setEditingService(null);
+          admin.setIsNewServiceModalOpen(false);
+        }}
+        onSave={admin.handleSaveService}
+        onDelete={admin.handleDeleteService}
+      />
 
     </div>
   );

@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Appointment, AppointmentStatus, Service } from '../models/types';
 import { AppointmentModel } from '../models/AppointmentModel';
 import { ServiceModel } from '../models/ServiceModel';
@@ -134,6 +134,26 @@ export function useAdminController() {
     };
   }, [appointments, todayStr]);
 
+  const [editingAppointment, setEditingAppointment] = useState<Appointment | null>(null);
+  const [editingService, setEditingService] = useState<Service | null>(null);
+  const [isNewServiceModalOpen, setIsNewServiceModalOpen] = useState<boolean>(false);
+
+  // Guardar cita editada / reasignada
+  const handleSaveAppointment = async (updatedAppointment: Appointment) => {
+    await AppointmentModel.update(updatedAppointment);
+    setAppointments(prev => prev.map(a => a.id === updatedAppointment.id ? updatedAppointment : a));
+    setEditingAppointment(null);
+  };
+
+  // Eliminar servicio del catálogo
+  const handleDeleteService = async (id: string) => {
+    if (window.confirm('¿Seguro que deseas eliminar este tratamiento del catálogo?')) {
+      await ServiceModel.delete(id);
+      setServices(prev => prev.filter(s => s.id !== id));
+      if (editingService?.id === id) setEditingService(null);
+    }
+  };
+
   return {
     isAuthenticated,
     pinInput,
@@ -158,6 +178,14 @@ export function useAdminController() {
     handleDeleteAppointment,
     handleToggleService,
     handleSaveService,
+    handleDeleteService,
+    editingAppointment,
+    setEditingAppointment,
+    handleSaveAppointment,
+    editingService,
+    setEditingService,
+    isNewServiceModalOpen,
+    setIsNewServiceModalOpen,
     reload: loadData,
     isSupabaseConfigured
   };

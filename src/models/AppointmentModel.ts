@@ -1,4 +1,4 @@
-﻿import { Appointment, AppointmentStatus } from './types';
+import { Appointment, AppointmentStatus } from './types';
 import { supabase, isSupabaseConfigured } from '../services/supabaseClient';
 
 const STORAGE_KEY = 'lumiere_spa_appointments_v1';
@@ -161,6 +161,36 @@ export class AppointmentModel {
     this.setLocalAppointments(updated);
 
     return newAppointment;
+  }
+
+  // Actualizar todos los campos de una cita (reasignar fecha, hora, especialista, etc.)
+  static async update(appointment: Appointment): Promise<Appointment> {
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from('appointments').update({
+          service_id: appointment.serviceId,
+          service_name: appointment.serviceName,
+          price_mxn: appointment.priceMXN,
+          duration_minutes: appointment.durationMinutes,
+          specialist_id: appointment.specialistId,
+          specialist_name: appointment.specialistName,
+          customer_name: appointment.customerName,
+          customer_phone: appointment.customerPhone,
+          customer_email: appointment.customerEmail,
+          customer_notes: appointment.customerNotes,
+          appointment_date: appointment.date,
+          time_slot: appointment.timeSlot,
+          status: appointment.status
+        }).eq('id', appointment.id);
+      } catch (err) {
+        console.warn('Error actualizando cita completa en Supabase:', err);
+      }
+    }
+
+    const current = this.getLocalAppointments();
+    const updated = current.map(item => (item.id === appointment.id || item.bookingCode === appointment.bookingCode) ? appointment : item);
+    this.setLocalAppointments(updated);
+    return appointment;
   }
 
   // Actualizar estado de cita

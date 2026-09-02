@@ -1,4 +1,4 @@
-﻿import { Service } from './types';
+import { Service } from './types';
 import { INITIAL_SERVICES } from '../config/business.config';
 import { supabase, isSupabaseConfigured } from '../services/supabaseClient';
 
@@ -92,6 +92,27 @@ export class ServiceModel {
     const current = this.getLocalServices();
     const updated = current.map(s => s.id === id ? { ...s, active: !s.active } : s);
     this.setLocalServices(updated);
+    if (isSupabaseConfigured && supabase) {
+      const target = updated.find(s => s.id === id);
+      if (target) {
+        await supabase.from('services').update({ active: target.active }).eq('id', id);
+      }
+    }
+    return true;
+  }
+
+  static async delete(id: string): Promise<boolean> {
+    const current = this.getLocalServices();
+    const updated = current.filter(s => s.id !== id);
+    this.setLocalServices(updated);
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from('services').delete().eq('id', id);
+      } catch (err) {
+        console.warn('Error eliminando servicio en Supabase:', err);
+      }
+    }
     return true;
   }
 }
