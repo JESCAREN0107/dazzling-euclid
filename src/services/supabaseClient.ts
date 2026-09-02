@@ -1,0 +1,11 @@
+﻿import { createClient } from '@supabase/supabase-js';
+
+// Si el usuario configura variables de entorno en su .env, se conecta en tiempo real a Supabase
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+
+export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey && supabaseUrl !== 'https://xyzcompany.supabase.co');
+
+export const supabase = isSupabaseConfigured 
+  ? createClient(supabaseUrl, supabaseAnonKey) 
+  : null;
