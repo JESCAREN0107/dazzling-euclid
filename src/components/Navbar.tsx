@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sparkles, Phone, Calendar, Menu, X, ShieldCheck } from 'lucide-react';
 import { BusinessInfo } from '../models/types';
 import { Button } from './ui/Button';
@@ -6,10 +6,9 @@ import { Button } from './ui/Button';
 interface NavbarProps {
   business: BusinessInfo;
   onOpenBooking: () => void;
-  onOpenAdmin: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ business, onOpenBooking, onOpenAdmin }) => {
+export const Navbar: React.FC<NavbarProps> = ({ business, onOpenBooking }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -143,17 +142,6 @@ export const Navbar: React.FC<NavbarProps> = ({ business, onOpenBooking, onOpenA
             >
               Agendar Cita Ahora
             </Button>
-
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenAdmin();
-              }}
-              className="text-xs text-center text-slate-400 hover:text-spa-600 pt-2 flex items-center justify-center gap-1.5"
-            >
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Acceso de Administración</span>
-            </button>
           </div>
         </div>
       )}

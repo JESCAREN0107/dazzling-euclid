@@ -1,14 +1,13 @@
-﻿import React from 'react';
+import React from 'react';
 import { Sparkles, MapPin, Phone, Mail, Clock, ShieldCheck, Heart } from 'lucide-react';
 import { BusinessInfo } from '../models/types';
 
 interface FooterProps {
   business: BusinessInfo;
-  onOpenAdmin: () => void;
   onOpenBooking: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ business, onOpenAdmin, onOpenBooking }) => {
+export const Footer: React.FC<FooterProps> = ({ business, onOpenBooking }) => {
   return (
     <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -118,7 +117,7 @@ export const Footer: React.FC<FooterProps> = ({ business, onOpenAdmin, onOpenBoo
 
         </div>
 
-        {/* Bottom Bar with Admin Access */}
+        {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p className="flex items-center gap-1.5">
             © {new Date().getFullYear()} {business.name}. Todos los derechos reservados.
@@ -128,16 +127,6 @@ export const Footer: React.FC<FooterProps> = ({ business, onOpenAdmin, onOpenBoo
             <span className="flex items-center gap-1">
               Desarrollado con <Heart className="w-3.5 h-3.5 text-spa-400 fill-current" /> para Clínicas de Belleza
             </span>
-
-            {/* Secret Button to open Admin Dashboard */}
-            <button
-              onClick={onOpenAdmin}
-              className="inline-flex items-center gap-1.5 text-slate-400 hover:text-spa-400 transition-colors bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60 hover:border-spa-500/40"
-              title="Panel de Administración para el Dueño"
-            >
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Panel Dueño (Admin)</span>
-            </button>
           </div>
         </div>
 

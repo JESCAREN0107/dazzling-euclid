@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useBusinessController } from './controllers/useBusinessController';
 import { useBookingController } from './controllers/useBookingController';
 import { Navbar } from './components/Navbar';
@@ -14,8 +14,42 @@ import { ContactLocationView } from './views/public/ContactLocationView';
 import { BookingWizardModal } from './views/public/BookingWizardModal';
 import { AdminDashboardView } from './views/admin/AdminDashboardView';
 
+function checkIsAdminRoute(): boolean {
+  if (typeof window === 'undefined') return false;
+  const path = window.location.pathname.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  const search = window.location.search.toLowerCase();
+  return (
+    path === '/admin' || 
+    path.startsWith('/admin') || 
+    hash === '#/admin' || 
+    hash === '#admin' || 
+    search.includes('admin')
+  );
+}
+
 export function App() {
-  const [viewMode, setViewMode] = useState<'public' | 'admin'>('public');
+  const [viewMode, setViewMode] = useState<'public' | 'admin'>(() => {
+    return checkIsAdminRoute() ? 'admin' : 'public';
+  });
+
+  useEffect(() => {
+    const handleUrlChange = () => {
+      setViewMode(checkIsAdminRoute() ? 'admin' : 'public');
+    };
+
+    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener('hashchange', handleUrlChange);
+    return () => {
+      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener('hashchange', handleUrlChange);
+    };
+  }, []);
+
+  const handleBackToPublic = () => {
+    window.history.pushState({}, '', '/');
+    setViewMode('public');
+  };
 
   // Business Controller (Models & Services data)
   const business = useBusinessController();
@@ -27,7 +61,7 @@ export function App() {
   if (viewMode === 'admin') {
     return (
       <AdminDashboardView 
-        onBackToPublic={() => setViewMode('public')} 
+        onBackToPublic={handleBackToPublic} 
       />
     );
   }
@@ -40,7 +74,6 @@ export function App() {
       <Navbar
         business={business.businessInfo}
         onOpenBooking={booking.openGeneral}
-        onOpenAdmin={() => setViewMode('admin')}
       />
 
       {/* Cuerpo Principal */}
@@ -92,7 +125,6 @@ export function App() {
       {/* Footer */}
       <Footer
         business={business.businessInfo}
-        onOpenAdmin={() => setViewMode('admin')}
         onOpenBooking={booking.openGeneral}
       />
 
