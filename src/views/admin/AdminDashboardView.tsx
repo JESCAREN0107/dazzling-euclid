@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   ShieldCheck, Lock, LogOut, Calendar, Clock, User, Phone, CheckCircle2, 
   XCircle, AlertCircle, Trash2, Search, Plus, Sparkles, DollarSign,
@@ -276,159 +276,257 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({ onBackTo
 
             </div>
 
-            {/* Appointments Table */}
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="border-b border-slate-200 bg-slate-50 text-slate-600 font-bold uppercase tracking-wider">
-                    <th className="py-3.5 px-4">Folio / Fecha</th>
-                    <th className="py-3.5 px-4">Clienta</th>
-                    <th className="py-3.5 px-4">Tratamiento</th>
-                    <th className="py-3.5 px-4">Especialista</th>
-                    <th className="py-3.5 px-4">Inversión</th>
-                    <th className="py-3.5 px-4">Estado</th>
-                    <th className="py-3.5 px-4 text-right">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {admin.appointments.map((apt) => {
-                    const statusBadgeVariant = 
-                      apt.status === 'confirmada' ? 'success' :
-                      apt.status === 'pendiente' ? 'warning' :
-                      apt.status === 'completada' ? 'slate' : 'danger';
+            {/* Appointments Table - 100% Visible sin scroll horizontal */}
+            <div className="w-full">
+              <div className="hidden md:block w-full">
+                <table className="w-full text-left text-xs table-auto">
+                  <thead>
+                    <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-500 font-bold uppercase tracking-wider text-[11px]">
+                      <th className="py-3 px-3">Clienta</th>
+                      <th className="py-3 px-3">Fecha & Hora</th>
+                      <th className="py-3 px-3">Tratamiento</th>
+                      <th className="py-3 px-3">Inversión</th>
+                      <th className="py-3 px-3 text-center">Estado</th>
+                      <th className="py-3 px-3 text-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {admin.appointments.map((apt) => {
+                      const statusBadgeVariant = 
+                        apt.status === 'confirmada' ? 'success' :
+                        apt.status === 'pendiente' ? 'warning' :
+                        apt.status === 'completada' ? 'slate' : 'danger';
 
-                    // WhatsApp link for sending message to the client
-                    const clientWaMessage = `Hola ${apt.customerName}, te escribimos de ${BUSINESS_CONFIG.name} para confirmar los detalles de tu cita de ${apt.serviceName} agendada para el ${apt.date} a las ${apt.timeSlot}. ¿Nos confirmas tu asistencia?`;
-                    const clientWaUrl = `https://api.whatsapp.com/send?phone=52${apt.customerPhone.replace(/\D/g, '')}&text=${encodeURIComponent(clientWaMessage)}`;
+                      const clientWaMessage = `Hola ${apt.customerName}, te escribimos de ${BUSINESS_CONFIG.name} para confirmar los detalles de tu cita de ${apt.serviceName} agendada para el ${apt.date} a las ${apt.timeSlot}. ¿Nos confirmas tu asistencia?`;
+                      const clientWaUrl = `https://api.whatsapp.com/send?phone=52${apt.customerPhone.replace(/\D/g, '')}&text=${encodeURIComponent(clientWaMessage)}`;
 
-                    return (
-                      <tr key={apt.id} className="hover:bg-slate-50/80 transition-colors">
-                        
-                        {/* Folio & Date */}
-                        <td className="py-4 px-4">
-                          <span className="font-mono font-bold text-slate-900 block">
+                      return (
+                        <tr key={apt.id} className="hover:bg-slate-50/90 transition-colors">
+                          
+                          {/* Clienta & Folio */}
+                          <td className="py-3 px-3">
+                            <div className="font-bold text-slate-900 text-xs leading-snug">
+                              {apt.customerName}
+                            </div>
+                            <div className="flex items-center gap-1.5 text-[11px] text-slate-500 mt-0.5">
+                              <span className="font-mono font-bold text-spa-700 bg-spa-50 px-1.5 py-0.2 rounded text-[10px]">
+                                {apt.bookingCode}
+                              </span>
+                              <span>•</span>
+                              <span>{apt.customerPhone}</span>
+                            </div>
+                            {apt.customerNotes && (
+                              <p className="text-[10px] text-amber-800 bg-amber-50/80 border border-amber-200/60 px-1.5 py-0.5 rounded mt-1 max-w-[220px] truncate" title={apt.customerNotes}>
+                                {apt.customerNotes}
+                              </p>
+                            )}
+                          </td>
+
+                          {/* Fecha & Horario */}
+                          <td className="py-3 px-3 whitespace-nowrap">
+                            <div className="font-bold text-slate-800 flex items-center gap-1.5">
+                              <Calendar className="w-3.5 h-3.5 text-spa-600" />
+                              <span>{apt.date}</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500 font-semibold mt-0.5 flex items-center gap-1 pl-5">
+                              <span>{apt.timeSlot}</span>
+                            </div>
+                          </td>
+
+                          {/* Tratamiento & Especialista */}
+                          <td className="py-3 px-3">
+                            <span className="font-semibold text-slate-900 block leading-tight text-xs" title={apt.serviceName}>
+                              {apt.serviceName}
+                            </span>
+                            <span className="text-[11px] text-slate-500 block mt-0.5">
+                              {apt.specialistName} <span className="text-slate-300">({apt.durationMinutes}m)</span>
+                            </span>
+                          </td>
+
+                          {/* Inversión */}
+                          <td className="py-3 px-3 font-bold text-slate-900 text-xs whitespace-nowrap">
+                            ${apt.priceMXN.toLocaleString('es-MX')} MXN
+                          </td>
+
+                          {/* Estado */}
+                          <td className="py-3 px-3 text-center whitespace-nowrap">
+                            <Badge variant={statusBadgeVariant} size="sm">
+                              {apt.status.toUpperCase()}
+                            </Badge>
+                          </td>
+
+                          {/* Acciones */}
+                          <td className="py-3 px-3 text-right whitespace-nowrap">
+                            <div className="inline-flex items-center justify-end gap-1">
+                              
+                              {/* Botón rápido de cambio de estado */}
+                              {apt.status === 'pendiente' && (
+                                <button
+                                  onClick={() => admin.handleUpdateStatus(apt.id, 'confirmada')}
+                                  className="px-2 py-1 rounded-lg text-emerald-800 hover:bg-emerald-100 bg-emerald-50 border border-emerald-300 text-[11px] font-bold transition-colors"
+                                  title="Confirmar Cita"
+                                >
+                                  Confirmar
+                                </button>
+                              )}
+
+                              {apt.status === 'confirmada' && (
+                                <button
+                                  onClick={() => admin.handleUpdateStatus(apt.id, 'completada')}
+                                  className="px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-200 bg-slate-100 border border-slate-300 text-[11px] font-bold transition-colors"
+                                  title="Completar y Cobrar Cita"
+                                >
+                                  Completar
+                                </button>
+                              )}
+
+                              {/* Editar / Reasignar */}
+                              <button
+                                onClick={() => admin.setEditingAppointment(apt)}
+                                className="p-1.5 rounded-lg text-slate-600 hover:text-spa-700 hover:bg-spa-50 border border-slate-200 bg-white transition-colors"
+                                title="Editar y Reasignar Cita"
+                              >
+                                <Edit3 className="w-3.5 h-3.5" />
+                              </button>
+
+                              {/* WhatsApp a clienta */}
+                              <a
+                                href={clientWaUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="p-1.5 rounded-lg text-emerald-600 hover:bg-emerald-50 border border-emerald-200 bg-white transition-colors"
+                                title="Enviar WhatsApp"
+                              >
+                                <MessageCircle className="w-3.5 h-3.5 fill-emerald-100" />
+                              </a>
+
+                              {/* Cancelar Cita */}
+                              {apt.status !== 'cancelada' && (
+                                <button
+                                  onClick={() => admin.handleUpdateStatus(apt.id, 'cancelada')}
+                                  className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                                  title="Cancelar Cita"
+                                >
+                                  <XCircle className="w-3.5 h-3.5" />
+                                </button>
+                              )}
+
+                              {/* Eliminar Registro */}
+                              <button
+                                onClick={() => admin.handleDeleteAppointment(apt.id)}
+                                className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                                title="Eliminar del Registro"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+
+                            </div>
+                          </td>
+
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Vista Móvil / Tarjetas Adaptables (0 scroll horizontal) */}
+              <div className="md:hidden space-y-3">
+                {admin.appointments.map((apt) => {
+                  const statusBadgeVariant = 
+                    apt.status === 'confirmada' ? 'success' :
+                    apt.status === 'pendiente' ? 'warning' :
+                    apt.status === 'completada' ? 'slate' : 'danger';
+
+                  const clientWaMessage = `Hola ${apt.customerName}, te escribimos de ${BUSINESS_CONFIG.name} para confirmar los detalles de tu cita de ${apt.serviceName} agendada para el ${apt.date} a las ${apt.timeSlot}. ¿Nos confirmas tu asistencia?`;
+                  const clientWaUrl = `https://api.whatsapp.com/send?phone=52${apt.customerPhone.replace(/\D/g, '')}&text=${encodeURIComponent(clientWaMessage)}`;
+
+                  return (
+                    <div key={apt.id} className="p-4 rounded-2xl border border-slate-200 bg-white space-y-3 shadow-sm">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <span className="font-mono font-bold text-spa-700 text-xs">
                             {apt.bookingCode}
                           </span>
-                          <span className="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5">
-                            <Calendar className="w-3 h-3 text-spa-600" />
-                            {apt.date} — <strong>{apt.timeSlot}</strong>
-                          </span>
-                        </td>
+                          <h4 className="font-bold text-slate-900 text-sm">{apt.customerName}</h4>
+                          <span className="text-xs text-slate-500">{apt.customerPhone}</span>
+                        </div>
+                        <Badge variant={statusBadgeVariant} size="sm">
+                          {apt.status.toUpperCase()}
+                        </Badge>
+                      </div>
 
-                        {/* Customer */}
-                        <td className="py-4 px-4">
-                          <div className="font-bold text-slate-900">
-                            {apt.customerName}
-                          </div>
-                          <div className="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5">
-                            <Phone className="w-3 h-3 text-slate-400" />
-                            <span>{apt.customerPhone}</span>
-                          </div>
-                          {apt.customerNotes && (
-                            <div className="text-[10px] text-spa-700 bg-spa-50 px-2 py-0.5 rounded mt-1 max-w-xs truncate" title={apt.customerNotes}>
-                              Nota: {apt.customerNotes}
-                            </div>
-                          )}
-                        </td>
-
-                        {/* Service */}
-                        <td className="py-4 px-4">
-                          <span className="font-medium text-slate-900 block max-w-xs truncate" title={apt.serviceName}>
-                            {apt.serviceName}
-                          </span>
-                          <span className="text-[10px] text-slate-400">
-                            {apt.durationMinutes} min de sesión
-                          </span>
-                        </td>
-
-                        {/* Specialist */}
-                        <td className="py-4 px-4 text-slate-600">
-                          {apt.specialistName}
-                        </td>
-
-                        {/* Price */}
-                        <td className="py-4 px-4 font-bold text-slate-900">
+                      <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                        <div>
+                          <span className="font-semibold text-slate-800 block">{apt.serviceName}</span>
+                          <span className="text-slate-500">{apt.date} • {apt.timeSlot}</span>
+                        </div>
+                        <div className="font-bold text-slate-900 text-right">
                           ${apt.priceMXN.toLocaleString('es-MX')} MXN
-                        </td>
+                        </div>
+                      </div>
 
-                        {/* Status */}
-                        <td className="py-4 px-4">
-                          <Badge variant={statusBadgeVariant}>
-                            {apt.status.toUpperCase()}
-                          </Badge>
-                        </td>
+                      {apt.customerNotes && (
+                        <p className="text-[11px] text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200">
+                          {apt.customerNotes}
+                        </p>
+                      )}
 
-                        {/* Actions */}
-                        <td className="py-4 px-4 text-right">
-                          <div className="flex items-center justify-end gap-1.5">
-                            
-                            {/* Botón Editar y Reasignar */}
+                      <div className="pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5">
+                          {apt.status === 'pendiente' && (
                             <button
-                              onClick={() => admin.setEditingAppointment(apt)}
-                              className="p-1.5 rounded-lg text-spa-700 hover:bg-spa-50 border border-spa-200 bg-white"
-                              title="Editar y Reasignar Cita"
+                              onClick={() => admin.handleUpdateStatus(apt.id, 'confirmada')}
+                              className="px-2.5 py-1.5 rounded-lg text-emerald-800 bg-emerald-50 border border-emerald-300 text-xs font-bold"
                             >
-                              <Edit3 className="w-3.5 h-3.5" />
+                              Confirmar
                             </button>
-
-                            {/* WhatsApp to client */}
-                            <a
-                              href={clientWaUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="p-1.5 rounded-lg text-emerald-600 hover:bg-emerald-50 border border-emerald-200 bg-white"
-                              title="Enviar WhatsApp a la clienta"
-                            >
-                              <MessageCircle className="w-3.5 h-3.5 fill-emerald-100" />
-                            </a>
-
-                            {/* Status changer buttons */}
-                            {apt.status === 'pendiente' && (
-                              <button
-                                onClick={() => admin.handleUpdateStatus(apt.id, 'confirmada')}
-                                className="p-1.5 rounded-lg text-emerald-700 hover:bg-emerald-100 bg-emerald-50 border border-emerald-300 text-[10px] font-bold"
-                                title="Marcar como Confirmada"
-                              >
-                                Confirmar
-                              </button>
-                            )}
-
-                            {apt.status === 'confirmada' && (
-                              <button
-                                onClick={() => admin.handleUpdateStatus(apt.id, 'completada')}
-                                className="p-1.5 rounded-lg text-slate-700 hover:bg-slate-200 bg-slate-100 border border-slate-300 text-[10px] font-bold"
-                                title="Marcar como Completada"
-                              >
-                                Completar
-                              </button>
-                            )}
-
-                            {apt.status !== 'cancelada' && (
-                              <button
-                                onClick={() => admin.handleUpdateStatus(apt.id, 'cancelada')}
-                                className="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50"
-                                title="Cancelar Cita"
-                              >
-                                <XCircle className="w-3.5 h-3.5" />
-                              </button>
-                            )}
-
+                          )}
+                          {apt.status === 'confirmada' && (
                             <button
-                              onClick={() => admin.handleDeleteAppointment(apt.id)}
-                              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50"
-                              title="Eliminar registro"
+                              onClick={() => admin.handleUpdateStatus(apt.id, 'completada')}
+                              className="px-2.5 py-1.5 rounded-lg text-slate-700 bg-slate-100 border border-slate-300 text-xs font-bold"
                             >
-                              <Trash2 className="w-3.5 h-3.5" />
+                              Completar
                             </button>
+                          )}
+                          <a
+                            href={clientWaUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="p-1.5 rounded-lg text-emerald-600 bg-emerald-50 border border-emerald-200 text-xs"
+                          >
+                            <MessageCircle className="w-4 h-4 fill-emerald-100" />
+                          </a>
+                          <button
+                            onClick={() => admin.setEditingAppointment(apt)}
+                            className="p-1.5 rounded-lg text-slate-600 border border-slate-200 text-xs"
+                          >
+                            <Edit3 className="w-4 h-4" />
+                          </button>
+                        </div>
 
-                          </div>
-                        </td>
-
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                        <div className="flex items-center gap-1">
+                          {apt.status !== 'cancelada' && (
+                            <button
+                              onClick={() => admin.handleUpdateStatus(apt.id, 'cancelada')}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600"
+                            >
+                              <XCircle className="w-4 h-4" />
+                            </button>
+                          )}
+                          <button
+                            onClick={() => admin.handleDeleteAppointment(apt.id)}
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
 
               {admin.appointments.length === 0 && (
                 <div className="text-center py-12 text-slate-400">
