@@ -21,7 +21,9 @@ export const env = {
     );
   },
   get siteUrl() {
-    return (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(/\/$/, '');
+    const raw = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://dazzling-euclid.vercel.app');
+    const withProto = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+    return withProto.replace(/\/$/, '');
   },
 };
 

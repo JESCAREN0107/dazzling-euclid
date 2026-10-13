@@ -5,8 +5,15 @@ import './globals.css';
 
 const siteUrl = env.siteUrl;
 
+let metadataBaseUrl: URL;
+try {
+  metadataBaseUrl = new URL(siteUrl);
+} catch {
+  metadataBaseUrl = new URL('https://dazzling-euclid.vercel.app');
+}
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: metadataBaseUrl,
   title: {
     default: 'Lumière Skin & Spa — Clínica Dermoestética & Spa en Río Bravo / Reynosa',
     template: '%s · Lumière Skin & Spa',
