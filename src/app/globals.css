@@ -4,6 +4,7 @@
   --accent:#C86D51; --accent-dark:#A65239; --accent-tint:#F7E6DF;
   --accent-text:#A65239;
   --fg:#231D19; --fg-2:#544941; --fg-muted:#85776C; --line:#E6DDD0;
+  --muted:#85776C; --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --error:#B8423B; --success:#4A7C59; --success-tint:rgba(74,124,89,.14); --gray-text:#85776C; --gray-tint:rgba(133,119,108,.12);
   --home-cta-bg:linear-gradient(165deg, var(--accent-tint) 0%, var(--bg-2) 100%); --home-cta-fg:var(--fg); --home-cta-lead:var(--fg-2); --home-cta-btn-color:var(--fg); --home-cta-btn-border:color-mix(in srgb, var(--accent) 45%, var(--line)); --home-cta-btn-hover-border:var(--accent); --home-cta-btn-hover-fg:var(--accent-dark);
   --font-sans: var(--font-poppins), system-ui, -apple-system, sans-serif;
@@ -25,19 +26,20 @@
   color-scheme:light;
 }
 
-/* â”€â”€ LumiÃ¨re Botanical Luxury â€” dark â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Lumière Botanical Luxury — dark ─────────────────────── */
 [data-theme="dark"] {
   --bg:#14110F; --bg-2:#1C1815; --surface:#241F1B;
   --accent:#D98468; --accent-dark:#C86D51; --accent-tint:rgba(217,132,104,.16);
   --accent-text:#E59B82;
   --fg:#F7F2EB; --fg-2:#C4B8AC; --fg-muted:#8C7F73; --line:#332C26;
+  --muted:#8C7F73;
   --error:#E06C65; --success:#6BA37C; --success-tint:rgba(107,163,124,.16); --gray-text:#C4B8AC; --gray-tint:rgba(196,184,172,.14);
   --home-cta-bg:linear-gradient(165deg, #181411 0%, #241F1B 55%, #2D1F1A 120%); --home-cta-fg:#F7F2EB; --home-cta-lead:rgba(247, 242, 235, 0.78); --home-cta-btn-color:#F7F2EB; --home-cta-btn-border:rgba(247,242,235,0.28); --home-cta-btn-hover-border:var(--accent); --home-cta-btn-hover-fg:var(--accent);
   --shadow-card:0 14px 40px -18px rgba(0,0,0,.55);
   color-scheme:dark;
 }
 
-/* â”€â”€ Admin console palette â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Admin console palette ───────────────────────────────── */
 .shell--admin {
   --bg:#FBF8F3;
   --bg-2:#F3ECE2;
@@ -59,14 +61,14 @@
   --accent-tint:rgba(217,132,104,.16);
 }
 
-/* â”€â”€ Reset / Base â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Reset / Base ────────────────────────────────────────── */
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body {
   margin:0; font-family:var(--font-sans); background:var(--bg); color:var(--fg);
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   /* `clip` (not `hidden`) stops sideways scroll WITHOUT making body a scroll
-     container â€” `overflow:hidden` here silently breaks `position:sticky` on the
+     container — `overflow:hidden` here silently breaks `position:sticky` on the
      header. Keep this as clip so the nav stays pinned to the top on scroll. */
   overflow-x:clip;
   transition:background-color .4s var(--ease), color .4s var(--ease);
@@ -87,7 +89,7 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
   transition:background-color .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease);
 }
 
-/* â”€â”€ Typography â€” the one shared system â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Typography — the one shared system ──────────────────── */
 /* Single eyebrow. Defined once; sections must not redefine it inline. */
 .eyebrow { display:inline-flex; align-items:center; gap:12px; font-size:11.5px; font-weight:700;
   text-transform:uppercase; letter-spacing:.18em; color:var(--accent-text); }
@@ -103,7 +105,7 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
 
 .lead { font-size:clamp(16px,1.6vw,19px); line-height:1.65; color:var(--fg-2); max-width:54ch; }
 
-/* â”€â”€ Buttons â€” Pills â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Buttons — Pills ─────────────────────────────────────── */
 .btn { display:inline-flex; align-items:center; justify-content:center; gap:10px; font-family:inherit; font-size:15px; font-weight:700; padding:14px 26px; border-radius:var(--radius-pill); border:1.5px solid transparent; cursor:pointer; white-space:nowrap; transition:transform .15s var(--ease), background .2s, box-shadow .2s, color .2s, border-color .2s; will-change:transform; }
 .btn:active { transform:translateY(1px) scale(.99); }
 .btn--primary { background:var(--grad-gold); color:#fff; box-shadow:0 10px 24px -8px color-mix(in srgb, var(--accent-dark) 70%, transparent); }
@@ -114,7 +116,7 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
 .btn--ghost-light:hover { border-color:var(--accent); }
 .btn--lg { padding:16px 30px; font-size:16px; }
 
-/* â”€â”€ Profile dropdown (logged-in header) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Profile dropdown (logged-in header) ──────────────────── */
 .nav-profile { position:relative; display:inline-flex; }
 .nav-profile__btn { background:none; border:0; padding:2px; border-radius:50%; cursor:pointer; line-height:0;
   transition:transform .15s var(--ease), box-shadow .2s var(--ease); }
@@ -144,10 +146,10 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
 .nav-profile__item--danger:hover { background:color-mix(in srgb, var(--error) 10%, transparent); color:var(--error); }
 .nav-profile__menu form { margin:0; }
 
-/* â”€â”€ Profile edit modal (popup) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Profile edit modal (popup) ───────────────────────────── */
 /* z-index sits above the route loader (1500) so a navigation triggered while a
    dialog is open can't paint the full-screen loader over it. Splash (2000) stays
-   topmost â€” it only shows on first paint. */
+   topmost — it only shows on first paint. */
 .pm__overlay { position:fixed; inset:0; z-index:1600; display:grid; place-items:center; padding:20px;
   overflow-y:auto; background:color-mix(in srgb, #1c130a 55%, transparent); backdrop-filter:blur(3px);
   animation:pm-fade .15s var(--ease); }
@@ -182,7 +184,7 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
   background:linear-gradient(160deg, var(--accent), var(--accent-dark));
   box-shadow:0 2px 8px rgba(184,116,42,.3); }
 
-/* â”€â”€ Theme toggle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Theme toggle ────────────────────────────────────────── */
 .theme-toggle { width:42px; height:42px; border-radius:50%; border:1.5px solid var(--line);
   background:var(--surface); color:var(--fg); display:grid; place-items:center; cursor:pointer; flex:none;
   transition:border-color .2s, color .2s, background .2s, transform .15s var(--ease); }
@@ -193,10 +195,10 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
 [data-theme="dark"] .theme-toggle .i-sun { display:none; }
 [data-theme="dark"] .theme-toggle .i-moon { display:block; }
 
-/* â”€â”€ status tag pill (account + admin booking lists) â”€â”€â”€â”€â”€â”€â”€ */
+/* ── status tag pill (account + admin booking lists) ─────── */
 .tag { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--fg-2); background:var(--bg-2); border:1px solid var(--line); padding:5px 10px; border-radius:var(--radius-pill); }
 
-/* â”€â”€ Booking â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Booking ─────────────────────────────────────────────── */
 .book__card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg); box-shadow:var(--shadow-card); overflow:hidden; display:grid; grid-template-columns:1.5fr 1fr; }
 .book__main { padding:clamp(26px,3.4vw,44px); }
 .book__aside { background:var(--bg-2); border-left:1px solid var(--line); color:var(--fg); padding:clamp(26px,3.4vw,44px); }
@@ -256,7 +258,7 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
 .confirm h3 { font-size:26px; font-weight:700; margin:0 0 8px; color:var(--fg); }
 .confirm p { font-size:15px; color:var(--fg-2); margin:0 auto 26px; max-width:42ch; line-height:1.6; }
 /* Clean "keep it safe" card: an inline icon + title on one row, full-width text
-   and button below. No separate icon circle â€” the icon reads as part of the
+   and button below. No separate icon circle — the icon reads as part of the
    heading, which sidesteps the awkward circle-centring entirely. */
 .confirm__claim { text-align:left; background:var(--accent-tint); border:1px solid color-mix(in srgb, var(--accent) 35%, var(--line)); border-radius:var(--radius-lg); padding:18px; margin:-4px auto 24px; max-width:42ch; display:flex; flex-direction:column; gap:12px; }
 .confirm__claim-title { display:flex; align-items:center; gap:9px; font-size:15px; font-weight:700; color:var(--fg); }
@@ -266,14 +268,14 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
 .confirm__ticket { text-align:left; background:var(--bg-2); border:1px dashed var(--line); border-radius:var(--radius-lg); padding:22px; max-width:420px; margin:0 auto 26px; }
 .guest-recent { margin-top:28px; }
 
-/* â”€â”€ Reveal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Reveal ──────────────────────────────────────────────── */
 .reveal { opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
 .reveal.in { opacity:1; transform:none; }
 .reveal[data-d="1"] { transition-delay:.08s; }
 .reveal[data-d="2"] { transition-delay:.16s; }
 .reveal[data-d="3"] { transition-delay:.24s; }
 
-/* â”€â”€ img-slot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── img-slot ────────────────────────────────────────────── */
 .img-slot { background:color-mix(in srgb, var(--fg) 10%, var(--bg-2)); }
 .img-slot__shimmer { position:absolute; inset:0; z-index:1;
   background:linear-gradient(90deg,
@@ -284,13 +286,13 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
 @keyframes shimmer { from { background-position:200% 0; } to { background-position:-200% 0; } }
 .img-slot--empty { background:var(--bg-2); display:grid; place-items:center; color:var(--fg-muted); font-size:13px; }
 
-/* â”€â”€ Custom Scrollbar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Custom Scrollbar ────────────────────────────────────── */
 ::-webkit-scrollbar { width:8px; height:8px; }
 ::-webkit-scrollbar-track { background:var(--bg); }
 ::-webkit-scrollbar-thumb { background:color-mix(in srgb, var(--accent) 35%, transparent); border-radius:var(--radius-pill); border:2px solid var(--bg); }
 ::-webkit-scrollbar-thumb:hover { background:color-mix(in srgb, var(--accent) 55%, transparent); }
 
-/* â”€â”€ Auth â€” salon-mirror layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ── Auth — salon-mirror layout ──────────────────────────────
    No floating card: the page IS the room. Left, the salon interior sits
    inside an arched mirror frame (the arches from our own windows/mirrors)
    with a live "open" chip hanging off its edge; right, the form rests
@@ -378,7 +380,7 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
   }
 }
 
-/* â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Responsive ──────────────────────────────────────────── */
 @media (max-width:980px) {
   .theme-toggle { margin-left:auto; }
   .stats { grid-template-columns:1fr 1fr; gap:30px 20px; }
@@ -395,18 +397,18 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
   /* keep the decorative story pole from poking past the screen edge */
 }
 
-/* â”€â”€ Reduced motion â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Reduced motion ──────────────────────────────────────── */
 @media (prefers-reduced-motion:reduce) {
   .reveal { transition:none; }
 }
 
-/* â•â• Auth / Account / Admin redesign layer â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ══ Auth / Account / Admin redesign layer ═══════════════════════════════ */
 
-/* â”€â”€ shared icon sizing (REQUIRED on every inline svg) â”€â”€ */
+/* ── shared icon sizing (REQUIRED on every inline svg) ── */
 .ic { width:16px; height:16px; flex:none; display:inline-block; }
 .ic-lg { width:20px; height:20px; flex:none; display:inline-block; }
 
-/* â”€â”€ password field with eye toggle + strength â”€â”€ */
+/* ── password field with eye toggle + strength ── */
 .pw { position:relative; }
 .pw input { padding-right:44px !important; }
 .pw__eye { position:absolute; right:8px; top:50%; transform:translateY(-50%); width:30px; height:30px;
@@ -434,7 +436,7 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
 .match { font-size:12px; margin:6px 0 0; font-weight:600; }
 .match.ok { color:var(--success); } .match.bad { color:var(--error); }
 
-/* â”€â”€ Panels â”€â”€ */
+/* ── Panels ── */
 .panel { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg);
   padding:24px; box-shadow:0 14px 40px -20px rgba(184,116,42,.16); }
 .account-panel { max-width:480px; }
@@ -442,12 +444,12 @@ body, .book__card, .book__main, .field input, .field textarea, .choice, .date-ch
 .panel--danger { border-color:color-mix(in srgb, var(--error) 45%, var(--line)); }
 .panel--danger h2 { color:var(--error); }
 
-/* â”€â”€ Sidebar shell (account + admin/staff) â”€â”€ */
+/* ── Sidebar shell (account + admin/staff) ── */
 .shell { display:grid; grid-template-columns:250px 1fr; grid-auto-rows:minmax(0,1fr); background:var(--surface);
   border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden;
   min-height:calc(100vh - 120px); box-shadow:0 14px 40px -18px rgba(184,116,42,.2);
   max-width:var(--maxw); margin:30px auto; }
-/* Admin shell fills the full viewport â€” no surrounding frame/card */
+/* Admin shell fills the full viewport — no surrounding frame/card */
 .shell--admin { max-width:none; margin:0; border:0; border-radius:0; box-shadow:none;
   min-height:100vh; min-height:100svh; }
 .shell__side { background:var(--bg-2); border-right:1px solid var(--line); padding:20px 16px; display:flex; flex-direction:column; }
@@ -493,7 +495,7 @@ a.side__id:hover { border-color:var(--accent); }
 .side__foot form { flex:1; min-width:0; }
 .side__foot .btn { width:100%; }
 
-/* â”€â”€ List toolbar (search + chips) â”€â”€ */
+/* ── List toolbar (search + chips) ── */
 .toolbar { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
 .search { position:relative; flex:1; min-width:220px; }
 .search .ic { position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--fg-muted); }
@@ -508,7 +510,7 @@ a.side__id:hover { border-color:var(--accent); }
 .chip.on { background:var(--accent); border-color:var(--accent); color:var(--fg); }
 .toolbar .count { font-size:12px; color:var(--fg-muted); margin-left:auto; font-weight:600; }
 
-/* â”€â”€ Data table â”€â”€ */
+/* ── Data table ── */
 .data-table { width:100%; border-collapse:collapse; font-size:14px; background:var(--surface);
   border:1px solid var(--line); border-radius:14px; overflow:hidden; }
 .data-table thead th { text-align:left; background:var(--bg-2); padding:11px 14px; font-size:11px;
@@ -517,7 +519,7 @@ a.side__id:hover { border-color:var(--accent); }
 .data-table .ref { font-family:ui-monospace, monospace; font-size:12.5px; color:var(--fg-muted); }
 .data-table__actions { white-space:nowrap; }
 
-/* â”€â”€ Booking / schedule cards â”€â”€ */
+/* ── Booking / schedule cards ── */
 .bk-list { list-style:none; margin:0; padding:0; display:grid; gap:11px; }
 /* admin schedule: cards flow into responsive columns to fill the width */
 .bk-list--grid { grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); }
@@ -561,13 +563,13 @@ a.side__id:hover { border-color:var(--accent); }
 .bk-card__info b { display:block; font-size:14.5px; color:var(--fg); }
 .bk-card__info span { font-size:12px; color:var(--fg-muted); }
 
-/* â”€â”€ status tags (defined tokens only) â”€â”€ */
+/* ── status tags (defined tokens only) ── */
 .tag--confirmed { background:color-mix(in srgb, var(--accent) 16%, transparent); color:var(--accent-text); }
 .tag--completed { background:var(--success-tint); color:var(--success); }
 .tag--no_show   { background:var(--gray-tint); color:var(--gray-text); }
 .tag--cancelled { background:color-mix(in srgb, var(--error) 14%, transparent); color:var(--error); }
 
-/* â”€â”€ People row â”€â”€ */
+/* ── People row ── */
 .person { display:flex; align-items:center; gap:13px; background:var(--surface); border:1px solid var(--line);
   border-radius:14px; padding:14px 16px; flex-wrap:wrap; }
 .person select { font-family:inherit; font-size:13px; color:var(--fg); background:var(--bg-2);
@@ -578,20 +580,20 @@ a.side__id:hover { border-color:var(--accent); }
 .person__edit { display:flex; align-items:center; gap:8px; margin-left:auto; }
 .person__del { margin-left:4px; }
 
-/* â”€â”€ Space-filling CRUD layout: list (left) + add-form (right) â”€â”€â”€â”€ */
+/* ── Space-filling CRUD layout: list (left) + add-form (right) ──── */
 .acrud { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(280px,.9fr); gap:16px; align-items:start; }
 .acrud__list { min-width:0; }
 .acrud__form { min-width:0; }
 .acrud__form .acard { position:sticky; top:16px; margin:0; max-width:none; }
 
-/* â”€â”€ Content page: section forms in a 2-up grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Content page: section forms in a 2-up grid ────────────────── */
 .acontent-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
 .acontent-grid .acard { margin:0; max-width:none; }
 
 .btn--danger-outline { background:transparent; color:var(--error); border-color:var(--error); }
 .btn--danger-outline:hover { background:color-mix(in srgb, var(--error) 8%, transparent); }
 
-/* â”€â”€ responsive â”€â”€ */
+/* ── responsive ── */
 @media (max-width:860px) {
   .auth { grid-template-columns:1fr; gap:20px; min-height:0; padding:74px 20px 44px; }
   .auth__back { top:18px; left:18px; }
@@ -611,7 +613,7 @@ a.side__id:hover { border-color:var(--accent); }
   /* minmax(0,1fr) + min-width:0 stop the single column from growing past
      the viewport when a child (tiles, booking cards) is intrinsically wide.
      Explicit rows are required: the base grid-auto-rows:minmax(0,1fr) would
-     give the stacked sidebar a full 1fr row â€” a viewport-tall blank header
+     give the stacked sidebar a full 1fr row — a viewport-tall blank header
      that pushes the page content below the fold. */
   .shell { grid-template-columns:minmax(0,1fr); grid-template-rows:auto minmax(0,1fr);
     margin:0; border-radius:0; min-height:0; }
@@ -625,7 +627,7 @@ a.side__id:hover { border-color:var(--accent); }
   .side__foot { margin-top:12px; }
 }
 
-/* ===== ADMIN (redesign â€” direction B) ===== */
+/* ===== ADMIN (redesign — direction B) ===== */
 /* Page header */
 .ahead { display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
 .ahead__title { font-size:32px; font-weight:800; letter-spacing:-.03em; color:var(--fg); margin:6px 0 0; }
@@ -720,8 +722,8 @@ a.side__id:hover { border-color:var(--accent); }
 .arow__name { font-size:14px; font-weight:700; color:var(--fg); }
 .arow__meta { font-size:12px; color:var(--fg-muted); }
 /* split row (holidays / blocked slots): stacked info, action to the right.
-   Without this the name/date/source spans render as one run-together line â€”
-   the grid layout only existed inside the â‰¤640px block. */
+   Without this the name/date/source spans render as one run-together line —
+   the grid layout only existed inside the ≤640px block. */
 .arow--split { display:flex; justify-content:space-between; align-items:center; gap:14px; }
 .arow--split .arow__main { display:grid; gap:4px; min-width:0; }
 /* Edit + Delete sit together on one action row under the name */
@@ -733,16 +735,16 @@ a.side__id:hover { border-color:var(--accent); }
   border-radius:var(--radius-pill); transition:border-color .15s var(--ease), color .15s var(--ease); }
 .arow__edit summary:hover { border-color:var(--accent); color:var(--accent-dark); }
 .arow__edit summary::-webkit-details-marker { display:none; }
-.arow__edit summary::before { content:"âœŽ Edit"; }
-/* when open, the summary is just a state label â€” Save/Cancel in the footer
+.arow__edit summary::before { content:"✎ Editar"; }
+/* when open, the summary is just a state label — Save/Cancel in the footer
    handle the actions, so it must not look like a second "Cancel/Close". */
-.arow__edit[open] summary::before { content:"Editing"; }
+.arow__edit[open] summary::before { content:"Editando"; }
 .arow__edit[open] summary { color:var(--accent-text); border-color:var(--accent); background:var(--accent-tint); cursor:default; }
 /* the edit form drops full-width below the action row when open */
 .arow__edit[open] { flex:1 1 100%; order:3; }
 .arow__edit > form { margin-top:14px; }
 
-/* â”€â”€ Admin media cards â€” the dashboards' twin of .home-scard â”€â”€
+/* ── Admin media cards — the dashboards' twin of .home-scard ──
    Photo-first cards for the Services / Stylists / Gallery CRUDs, with the
    same lift + gold hover the public site uses, so both surfaces feel like
    one product. Rows (.alist/.arow) remain as the alternate view. */
@@ -781,7 +783,7 @@ a.side__id:hover { border-color:var(--accent); }
 .mcard .arow__edit[open] { flex:1 1 100%; order:3; }
 .mcard .arow__edit > form { margin-top:12px; padding-bottom:4px; }
 
-/* â”€â”€ Card/row view toggle (list toolbar) â”€â”€ */
+/* ── Card/row view toggle (list toolbar) ── */
 .vtoggle { display:inline-flex; border:1.5px solid var(--line); border-radius:var(--radius-pill);
   overflow:hidden; flex:none; background:var(--surface); }
 .vtoggle button { background:none; border:0; padding:7px 11px; cursor:pointer; color:var(--fg-muted);
@@ -798,7 +800,7 @@ a.side__id:hover { border-color:var(--accent); }
 .astatus--ok { color:var(--accent-text); }
 .athumb { width:72px; height:72px; object-fit:cover; border-radius:var(--radius-sm); border:1.5px solid var(--line); }
 
-/* â•â• Admin mobile polish (â‰¤640px) â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══ Admin mobile polish (≤640px) ═══════════════════════════
    Tighter shell, and the 7-column bookings table becomes stacked
    cards so it's usable on a phone instead of scrolling sideways. */
 @media (max-width:640px) {
@@ -817,7 +819,7 @@ a.side__id:hover { border-color:var(--accent); }
   .chip { flex:none; }                 /* keep chips from squishing */
   .toolbar .count { order:3; margin:0; }
 
-  /* data-table â†’ cards */
+  /* data-table → cards */
   .data-table, .data-table thead, .data-table tbody,
   .data-table tr, .data-table td { display:block; width:100%; }
   .data-table { border:0; background:transparent; overflow:visible; }
@@ -846,9 +848,9 @@ a.side__id:hover { border-color:var(--accent); }
   .data-table__actions .btn { margin:4px 0 0 6px; }
 }
 
-/* â•â• Floating WhatsApp button â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ══ Floating WhatsApp button ═══════════════════════════════ */
 /* Sits under the bottom nav (70) and every modal, above page content.
-   Layers, back to front: ripples (__pulse) â†’ disc â†’ gloss (::after) â†’ icon.
+   Layers, back to front: ripples (__pulse) → disc → gloss (::after) → icon.
    Only transform/opacity animate, so it stays crisp. */
 .wa-fab {
   position:fixed; right:28px; bottom:calc(28px + env(safe-area-inset-bottom)); z-index:65;
@@ -940,11 +942,11 @@ a.side__id:hover { border-color:var(--accent); }
   .wa-fab__pulse::before, .wa-fab__pulse::after { animation:none; }
 }
 
-/* â•â• Mobile bottom nav â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ══ Mobile bottom nav ══════════════════════════════════════ */
 .bottom-nav { display:none; }
 
 @media (max-width:780px) {
-  /* Floating frosted-glass dock â€” matches the app's inset, fully-rounded tab bar
+  /* Floating frosted-glass dock — matches the app's inset, fully-rounded tab bar
      (was an edge-to-edge bottom bar). Kept at the site's 780px mobile breakpoint. */
   .bottom-nav {
     position:fixed; left:16px; right:16px; z-index:70;
@@ -983,7 +985,7 @@ a.side__id:hover { border-color:var(--accent); }
   .bottom-nav__tab { transition:none; }
 }
 
-/* â•â• Admin/staff bottom nav (mirrors public one, no FAB) â•â•â•â•
+/* ══ Admin/staff bottom nav (mirrors public one, no FAB) ════
    Shell collapses at 860px, so the bar appears there too. */
 .bottom-nav--admin { display:none; }
 
@@ -997,7 +999,7 @@ a.side__id:hover { border-color:var(--accent); }
     border-top:1px solid var(--line);
     box-shadow:0 -6px 24px rgba(46,37,25,.08);
   }
-  /* no FAB reordering here â€” keep natural DOM order */
+  /* no FAB reordering here — keep natural DOM order */
   .bottom-nav--admin > * { order:0; min-width:0; }   /* min-width:0 lets tabs shrink */
   /* the shared tab styles need to apply at this breakpoint too */
   .bottom-nav--admin .bottom-nav__tab {
@@ -1014,22 +1016,22 @@ a.side__id:hover { border-color:var(--accent); }
   .bottom-nav--admin .bottom-nav__tab.is-active .bottom-nav__icon { color:var(--accent); }
 
   /* replace the in-shell nav: hide sidebar links + sign-out on mobile
-     (admin/staff only â€” the account page keeps its own tabs) */
+     (admin/staff only — the account page keeps its own tabs) */
   .shell--admin .side__nav,
   .shell--admin .side__foot { display:none; }
   /* clear the fixed bar so content isn't hidden behind it */
   .shell--admin .shell__main { padding-bottom:calc(74px + env(safe-area-inset-bottom)); }
   /* the desktop 280px centring block would push empty-state text under the
-     fixed bar on short pages â€” let it sit naturally below the content instead */
+     fixed bar on short pages — let it sit naturally below the content instead */
   .shell--admin .aempty { min-height:0; flex:0 0 auto; padding-block:28px; }
   /* the sheet must clear the bar too (the more-sheet panel sits above it) */
   .more-sheet--admin .more-sheet__panel { padding-bottom:calc(82px + env(safe-area-inset-bottom)); }
 
-  /* â”€â”€ Mobile app bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  /* ── Mobile app bar ─────────────────────────────────────────
      The stacked sidebar header collapses to one glass row that twins the
-     bottom bar: [â† back] [brand + role] Â·Â· [theme] [avatar]. Sticky, so
+     bottom bar: [← back] [brand + role] ·· [theme] [avatar]. Sticky, so
      the chrome frames the page top and bottom like a native app. */
-  /* overflow:visible â€” the base shell clips (overflow:hidden) for its desktop
+  /* overflow:visible — the base shell clips (overflow:hidden) for its desktop
      card radius, which would silently disable the sticky header below */
   .shell--admin { overflow:visible; }
   .shell--admin .shell__side {
@@ -1063,9 +1065,9 @@ a.side__id:hover { border-color:var(--accent); }
   .shell--admin .side__id .side__name, .shell--admin .sd-id__chair { display:none; }
 }
 
-/* â•â• Mobile "More" bottom sheet â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══ Mobile "More" bottom sheet ═════════════════════════════
    Gated at 860px so the admin sheet works across the full range
-   (the public More button only exists â‰¤780px, so this is harmless
+   (the public More button only exists ≤780px, so this is harmless
    for the public site). */
 .more-sheet { display:none; }
 
@@ -1100,42 +1102,42 @@ a.side__id:hover { border-color:var(--accent); }
   }
 }
 
-/* â•â• Mobile slim top bar â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ══ Mobile slim top bar ════════════════════════════════════ */
 @media (max-width:780px) {
-  /* push auth right â€” the theme toggle that used to do this is now hidden.
+  /* push auth right — the theme toggle that used to do this is now hidden.
      Covers logged-in (.nav-profile) and logged-out (Sign in = .nav__cta) */
   .nav-profile { margin-left:auto; }
   /* theme toggle lives in the More sheet on mobile, not the header */
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   MOBILE POLISH LAYER  (â‰¤780px)
+/* ══════════════════════════════════════════════════════════════
+   MOBILE POLISH LAYER  (≤780px)
    Natural section heights + consistent vertical rhythm.
-   No forced 100svh â€” that created dead space. Content flows and
+   No forced 100svh — that created dead space. Content flows and
    each section is tuned to feel designed on a small screen.
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ══════════════════════════════════════════════════════════════ */
 @media (max-width:780px) {
-  /* â”€â”€ consistent vertical rhythm â”€â”€ */
+  /* ── consistent vertical rhythm ── */
   .h-section { font-size:clamp(30px,9vw,40px); }
   .lead { font-size:15.5px; }
   .eyebrow { font-size:11px; }
   .tag { font-size:10px; padding:4px 8px; }
 
-  /* â”€â”€ Story: stacked, tidy stats â”€â”€ */
+  /* ── Story: stacked, tidy stats ── */
   .story p { font-size:15.5px; }
 
-  /* â”€â”€ Quote: tighter, not floating â”€â”€ */
+  /* ── Quote: tighter, not floating ── */
   .quote blockquote { font-size:clamp(24px,7vw,32px); max-width:16ch; }
 
-  /* â”€â”€ CTA: bold but compact â”€â”€ */
+  /* ── CTA: bold but compact ── */
 
-  /* â”€â”€ Visit: stacked, readable map â”€â”€ */
+  /* ── Visit: stacked, readable map ── */
   .map, .map .img-slot { min-height:240px; }
   .hours li { padding:12px 0; font-size:14.5px; }
 
-  /* â”€â”€ Footer: stacked, friendly â”€â”€ */
+  /* ── Footer: stacked, friendly ── */
 
-  /* â”€â”€ Booking wizard: full-width, finger-friendly â”€â”€ */
+  /* ── Booking wizard: full-width, finger-friendly ── */
   .book__card { grid-template-columns:1fr; }
   .book__aside { order:-1; border-left:0; border-bottom:1px solid var(--line); }
   .book__main, .book__aside { padding:22px 18px; }
@@ -1147,23 +1149,23 @@ a.side__id:hover { border-color:var(--accent); }
   .fields-2 { grid-template-columns:1fr; gap:0; }
 }
 
-/* â”€â”€ very small phones â”€â”€ */
+/* ── very small phones ── */
 @media (max-width:380px) {
   .slots { grid-template-columns:repeat(3,1fr); }
 }
 
-/* â•â• Mobile overflow & safe-area cleanup â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ══ Mobile overflow & safe-area cleanup ════════════════════ */
 /* Use `clip`, never `hidden`: overflow-x:hidden on html/body makes them scroll
    containers and breaks `position:sticky` on the header. `clip` blocks sideways
    scroll without that side effect, so the nav stays pinned on scroll. */
 html, body { overflow-x:clip; }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ADMIN / STAFF / ACCOUNT â€” mobile CRUD card restyle (â‰¤640px)
+/* ══════════════════════════════════════════════════════════════
+   ADMIN / STAFF / ACCOUNT — mobile CRUD card restyle (≤640px)
    Every list row becomes a clean, full-width card with stacked,
    finger-friendly controls. Forms (.acard) already stack; here we
    fix the flex-row rows that crammed controls side by side.
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ══════════════════════════════════════════════════════════════ */
 @media (max-width:640px) {
   /* page header: title + action stack instead of squeezing */
   .ahead { flex-direction:column; align-items:flex-start; gap:10px; margin-bottom:14px; }
@@ -1265,7 +1267,7 @@ html, body { overflow-x:clip; }
   border: 1px solid color-mix(in srgb, var(--error) 30%, transparent);
 }
 
-/* Neutral look while the open/closed check runs â€” must not flash red. */
+/* Neutral look while the open/closed check runs — must not flash red. */
 .live-status-badge--loading {
   background: var(--gray-tint);
   color: var(--gray-text);
@@ -1289,14 +1291,14 @@ html, body { overflow-x:clip; }
   100% { transform: scale(0.9); opacity: 0.6; }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   VERO HOME â€” "Warm Atelier"
+/* ════════════════════════════════════════════════════════════════════
+   VERO HOME — "Warm Atelier"
    One responsive home page. Refined & elegant. Namespace: .home
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ════════════════════════════════════════════════════════════════════ */
 
 .home {
   --home-pad: clamp(64px, 9vw, 130px);            /* vertical section rhythm */
-  --home-edge: clamp(18px, 5vw, 40px);            /* page side gutter â€” single source */
+  --home-edge: clamp(18px, 5vw, 40px);            /* page side gutter — single source */
   /* Content width grows a little on large monitors so wide screens don't feel
      cramped with huge dead margins, but stays capped for readability. */
   --home-maxw: min(1320px, 92vw);
@@ -1312,8 +1314,8 @@ html, body { overflow-x:clip; }
 .home-wrap { width: 100%; max-width: var(--home-maxw); margin: 0 auto; padding-inline: var(--home-edge); }
 .home-section { padding-block: var(--home-pad); }
 
-/* â”€â”€ shared type system â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-/* eyebrow: gold rule + label + tiny dot â€” echoes the pill-nav active marker */
+/* ── shared type system ──────────────────────────────────── */
+/* eyebrow: gold rule + label + tiny dot — echoes the pill-nav active marker */
 .home-eyebrow { display: inline-flex; align-items: center; gap: 12px;
   font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .22em;
   color: var(--accent-text); margin: 0 0 18px; }
@@ -1333,7 +1335,7 @@ html, body { overflow-x:clip; }
   width: 54px; height: 3px; border-radius: 999px; background: var(--grad-gold); }
 .home-head .home-lead { margin-inline: auto; }
 
-/* â”€â”€ buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── buttons ─────────────────────────────────────────────── */
 .home-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   font-family: inherit; font-size: 15px; font-weight: 600; letter-spacing: .01em;
   padding: 15px 30px; border-radius: 999px; border: 1.5px solid transparent; cursor: pointer;
@@ -1353,14 +1355,14 @@ html, body { overflow-x:clip; }
 .home-link span { color: var(--accent-text); transition: transform .25s var(--ease-app); }
 .home-link:hover span { transform: translateX(5px); }
 
-/* â”€â”€ card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── card ────────────────────────────────────────────────── */
 .home-card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
   box-shadow: 0 4px 14px rgba(46,37,25,.03);
   transition: transform .35s var(--ease-app), box-shadow .35s, border-color .35s; }
 .home-card:hover { transform: translateY(-5px); box-shadow: var(--home-lift); border-color: color-mix(in srgb, var(--accent) 30%, var(--line)); }
 
-/* â”€â”€ header / nav â€” floating pill (always) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   The inner bar is a centered, rounded glass capsule at ALL times â€” it floats
+/* ── header / nav — floating pill (always) ───────────────────
+   The inner bar is a centered, rounded glass capsule at ALL times — it floats
    over the hero from the very top. On scroll it just shrinks a little and the
    shadow deepens. Smooth & subtle, on the shared spring curve. */
 .home-header { position: sticky; top: 0; z-index: 60;
@@ -1368,7 +1370,7 @@ html, body { overflow-x:clip; }
   transition: padding .45s var(--ease-app); padding-top: 0; }
 .home-header.is-scrolled { padding-top: 12px; }
 
-/* at top of page â€” full-width flat bar flush to the top edge */
+/* at top of page — full-width flat bar flush to the top edge */
 .home-header__inner {
   display: flex; align-items: center; gap: 20px; height: 72px;
   max-width: 100%; margin-inline: auto;
@@ -1383,7 +1385,7 @@ html, body { overflow-x:clip; }
     border-color .4s var(--ease), background .45s var(--ease), box-shadow .45s var(--ease);
   position: relative;
 }
-/* scrolled â€” morph into the centered floating pill */
+/* scrolled — morph into the centered floating pill */
 .home-header.is-scrolled .home-header__inner {
   height: 62px;
   max-width: calc(var(--home-maxw) - 80px);
@@ -1427,7 +1429,7 @@ html, body { overflow-x:clip; }
 .home-nav a::after { content: ""; position: absolute; left: 50%; bottom: 2px; transform: translateX(-50%) scale(0);
   width: 5px; height: 5px; border-radius: 50%; background: var(--accent); transition: transform .25s var(--ease-app); }
 .home-nav a.is-active::after { transform: translateX(-50%) scale(1); }
-/* â”€â”€ action cluster: theme Â· sign in Â· book â€” one cohesive group â”€â”€â”€â”€ */
+/* ── action cluster: theme · sign in · book — one cohesive group ──── */
 .home-header__actions { display: flex; align-items: center; gap: 8px; margin-left: 18px;
   padding-left: 16px; border-left: 1px solid color-mix(in srgb, var(--line) 80%, transparent); }
 .home-nav ~ .home-header__actions { margin-left: 18px; }
@@ -1435,7 +1437,7 @@ html, body { overflow-x:clip; }
 .lang-toggle { display: flex; align-items: center; }
 
 
-/* theme toggle â€” scoped to the home header so it matches the pill nav */
+/* theme toggle — scoped to the home header so it matches the pill nav */
 .home-header .theme-toggle {
   width: 38px; height: 38px; border-radius: var(--radius-pill);
   border: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 70%, transparent);
@@ -1445,7 +1447,7 @@ html, body { overflow-x:clip; }
   color: var(--accent-dark); background: color-mix(in srgb, var(--accent) 10%, transparent); transform: translateY(-1px); }
 .home-header .theme-toggle .i-sun, .home-header .theme-toggle .i-moon { width: 17px; height: 17px; }
 
-/* Sign in â€” outlined accent button so it reads as a clear action, not plain text */
+/* Sign in — outlined accent button so it reads as a clear action, not plain text */
 .home-header .nav__cta {
   display: inline-flex; align-items: center; height: 38px; padding: 0 18px;
   font-family: inherit; font-size: 13.5px; font-weight: 700; color: var(--accent-text);
@@ -1458,7 +1460,7 @@ html, body { overflow-x:clip; }
   border-color: transparent; transform: translateY(-1px);
   box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--accent-dark) 70%, transparent); }
 
-/* Book now â€” gold primary, refined to sit in the cluster */
+/* Book now — gold primary, refined to sit in the cluster */
 .home-header__book.home-btn--primary, .home-header .home-btn--primary {
   height: 40px; padding: 0 22px; font-size: 14px; border-radius: var(--radius-pill);
   box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--accent-dark) 75%, transparent); }
@@ -1466,7 +1468,7 @@ html, body { overflow-x:clip; }
   transform: translateY(-2px);
   box-shadow: 0 16px 30px -12px color-mix(in srgb, var(--accent-dark) 80%, transparent); }
 
-/* logged-in avatar button â€” align to the 38px control height */
+/* logged-in avatar button — align to the 38px control height */
 .home-header .nav-profile__btn { padding: 0; }
 .home-header .nav-profile__avatar { width: 38px; height: 38px;
   box-shadow: 0 0 0 1px var(--line), 0 4px 12px -6px color-mix(in srgb, var(--accent-dark) 50%, transparent); }
@@ -1479,7 +1481,7 @@ html, body { overflow-x:clip; }
 .home-header.is-scrolled .home-btn--primary { height: 36px; padding: 0 18px; }
 .home-header.is-scrolled .home-header__actions { padding-left: 12px; margin-left: 12px; }
 
-/* â”€â”€ hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── hero ────────────────────────────────────────────────── */
 .home-hero { position: relative; padding-top: clamp(24px, 4vw, 48px); padding-bottom: var(--home-pad); overflow: hidden; }
 .home-hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
 .home-hero__display { font-family: var(--font-sans); font-weight: 700; letter-spacing: -.035em;
@@ -1507,17 +1509,17 @@ html, body { overflow-x:clip; }
 .home-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--success); flex: none;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--success) 22%, transparent); }
 
-/* â”€â”€ marquee trust strip â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── marquee trust strip ─────────────────────────────────── */
 .home-strip { background: var(--bg-2); border-block: 1px solid var(--line); overflow: hidden; }
 .home-strip__track { display: flex; gap: 56px; padding: 16px 0; white-space: nowrap; width: max-content;
   animation: homemarquee 32s linear infinite; }
 .home-strip__track span { display: inline-flex; align-items: center; gap: 56px; font-size: 15px; font-weight: 600;
   letter-spacing: .04em; color: var(--fg-2); text-transform: uppercase; }
-.home-strip__track span::after { content: "âœ¦"; color: var(--accent); }
+.home-strip__track span::after { content: "✦"; color: var(--accent); }
 @keyframes homemarquee { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .home-strip__track { animation: none; } }
 
-/* â”€â”€ story / about â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── story / about ───────────────────────────────────────── */
 .home-story { background: var(--bg); }
 .home-story__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
 .home-story__art { position: relative; aspect-ratio: 5/6; border-radius: 24px; overflow: hidden;
@@ -1534,7 +1536,7 @@ html, body { overflow-x:clip; }
 .home-story__stats span { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase;
   letter-spacing: .14em; color: var(--fg-muted); margin-top: 8px; }
 
-/* â”€â”€ how it works â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── how it works ────────────────────────────────────────── */
 .home-how { background: transparent; }
 .home-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--home-gap); counter-reset: step; }
 .home-step {
@@ -1561,8 +1563,8 @@ html, body { overflow-x:clip; }
 .home-step::after { content: ""; position: absolute; top: 38px; right: -11px; width: 22px; height: 1px; background: var(--line); }
 .home-step:last-child::after { display: none; }
 
-/* â”€â”€ services / pricing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-/* â”€â”€ services: category tabs â†’ him/her sub-tabs â†’ photo cards â”€â”€ */
+/* ── services / pricing ──────────────────────────────────── */
+/* ── services: category tabs → him/her sub-tabs → photo cards ── */
 .home-svc { display: flex; flex-direction: column; align-items: center; }
 /* main category tabs (pill toggle) */
 .home-svc__cats { display: inline-flex; gap: 4px; padding: 5px; margin: 0 auto 14px;
@@ -1581,7 +1583,7 @@ html, body { overflow-x:clip; }
 .home-svc__aud:hover { border-color: var(--accent); }
 .home-svc__aud.is-on { background: var(--accent-tint); border-color: var(--accent); color: var(--accent-dark); }
 .home-svc__empty { margin: 20px 0; }
-/* responsive photo-led card grid â€” mirrors the booking flow's service cards */
+/* responsive photo-led card grid — mirrors the booking flow's service cards */
 .home-svc__cards { width: 100%; display: grid; gap: clamp(14px, 2vw, 20px);
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 .home-scard { display: flex; flex-direction: column; background: var(--surface);
@@ -1599,7 +1601,7 @@ html, body { overflow-x:clip; }
 .home-scard__dur { margin-top: 2px; font-size: 11.5px; font-weight: 600; color: var(--fg-2);
   background: var(--bg-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; align-self: flex-start; }
 
-/* â”€â”€ lookbook â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── lookbook ────────────────────────────────────────────── */
 .home-look { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 230px; gap: var(--home-gap); }
 .home-look__item {
   position: relative;
@@ -1643,7 +1645,7 @@ html, body { overflow-x:clip; }
   background: var(--accent);
 }
 
-/* â”€â”€ team / stylists â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── team / stylists ─────────────────────────────────────── */
 .home-team { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--home-gap); }
 .home-member {
   cursor: pointer;
@@ -1670,7 +1672,7 @@ html, body { overflow-x:clip; }
   border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; transition: border-color 0.25s, color 0.25s; }
 .home-member:hover .home-tag { border-color: var(--accent); color: var(--accent-dark); }
 
-/* â”€â”€ reviews â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── reviews ─────────────────────────────────────────────── */
 .home-reviews__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr)); gap: var(--home-gap); }
 .home-review { padding: 26px; display: flex; flex-direction: column; }
 .home-review__stars { color: var(--accent); font-size: 15px; letter-spacing: 3px; margin-bottom: 14px; }
@@ -1682,7 +1684,7 @@ html, body { overflow-x:clip; }
 .home-review__by span { display: block; font-size: 11.5px; color: var(--accent-text); font-weight: 600; margin-top: 2px; }
 .home-review__date { font-size: 12px; color: var(--fg-muted); font-weight: 600; white-space: nowrap; }
 
-/* â”€â”€ visit â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── visit ───────────────────────────────────────────────── */
 .home-visit { background: transparent; }
 .home-visit__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--home-gap-lg); align-items: stretch; }
 .home-hours { list-style: none; margin: 22px 0 0; padding: 0; }
@@ -1701,7 +1703,7 @@ html, body { overflow-x:clip; }
 .home-visit__map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
 .home-visit__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 
-/* â”€â”€ CTA band â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── CTA band ────────────────────────────────────────────── */
 .home-cta { position: relative; overflow: hidden; text-align: center;
   background: transparent; color: var(--home-cta-fg);
   transition: color .4s var(--ease); }
@@ -1715,7 +1717,7 @@ html, body { overflow-x:clip; }
 .home-cta .home-btn--light { color: var(--home-cta-btn-color); border-color: var(--home-cta-btn-border); }
 .home-cta .home-btn--light:hover { border-color: var(--home-cta-btn-hover-border); color: var(--home-cta-btn-hover-fg); }
 
-/* â”€â”€ footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── footer ──────────────────────────────────────────────── */
 /* gold hairline on top bookends the page with the nav's accent language */
 .home-foot { position: relative; background: var(--bg-2); border-top: 1px solid var(--line); padding-top: clamp(48px, 6vw, 72px); }
 .home-foot::before { content: ""; position: absolute; top: -1px; left: 0; right: 0; height: 2px;
@@ -1734,10 +1736,10 @@ html, body { overflow-x:clip; }
 .home-foot__legal a { color: var(--fg-2); transition: color .18s var(--ease); }
 .home-foot__legal a:hover { color: var(--accent-text); }
 
-/* â”€â”€ sticky mobile book button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── sticky mobile book button ───────────────────────────── */
 .home-mobile-book { display: none; }
 
-/* â”€â”€ floating bottom dock (mobile + tablet, shown â‰¤1080px via media query) â”€â”€
+/* ── floating bottom dock (mobile + tablet, shown ≤1080px via media query) ──
    A detached, inset pill with five slots and the Book action raised in the
    centre. The .home-dock wrapper is the fixed positioner; .home-bottomnav is the
    visible floating pill; .home-dock__sheet is the "More" popover above it. */
@@ -1775,7 +1777,7 @@ html, body { overflow-x:clip; }
   background: color-mix(in srgb, var(--accent) 12%, transparent); }
 .home-bottomnav__tab:active { transform: scale(.94); }
 
-/* â”€â”€ raised centre action (Book) â€” a gold circle lifted above the bar â”€â”€ */
+/* ── raised centre action (Book) — a gold circle lifted above the bar ── */
 .home-bottomnav__center {
   flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 2px; width: 60px; height: 60px; margin: -26px 4px 0; padding: 0;
@@ -1791,7 +1793,7 @@ html, body { overflow-x:clip; }
 .home-bottomnav__center svg { width: 24px; height: 24px; }
 .home-bottomnav__center span { line-height: 1; }
 
-/* â”€â”€ "More" sheet â€” pops above the dock â”€â”€ */
+/* ── "More" sheet — pops above the dock ── */
 .home-dock__sheet {
   pointer-events: none;
   position: absolute; left: 12px; right: 12px; bottom: calc(100% + 10px);
@@ -1820,11 +1822,11 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   background: color-mix(in srgb, var(--error) 10%, transparent); }
 .home-dock__sheet-item.is-active { color: var(--accent-text);
   background: color-mix(in srgb, var(--accent) 16%, transparent); }
-/* Language toggle row inside the More sheet â€” spans both grid columns */
+/* Language toggle row inside the More sheet — spans both grid columns */
 .home-dock__sheet > div:first-child { grid-column: 1 / -1; border-radius: 13px;
   background: var(--bg-2); padding: 6px 12px; }
 
-/* â”€â”€ scroll reveal â€” desktop-only â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ── scroll reveal — desktop-only ────────────────────────────
    Hiding content until an IntersectionObserver fires is a desktop luxury: on
    touch devices a fast flick outruns the observer + 0.8s fade and whole
    sections read as blank, and horizontal rail cards that start off-screen
@@ -1843,7 +1845,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   }
 }
 
-/* â”€â”€ barber pole shine animation â”€â”€ */
+/* ── barber pole shine animation ── */
 @keyframes poleShine {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -1855,7 +1857,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   animation: poleShine 8s ease infinite;
 }
 
-/* â”€â”€ stagger reveal transition delays â”€â”€ */
+/* ── stagger reveal transition delays ── */
 .home-steps > .home-reveal:nth-child(1) { transition-delay: .05s; }
 .home-steps > .home-reveal:nth-child(2) { transition-delay: .15s; }
 .home-steps > .home-reveal:nth-child(3) { transition-delay: .25s; }
@@ -1880,7 +1882,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 .home-reviews__grid > .home-reveal:nth-child(5) { transition-delay: .33s; }
 .home-reviews__grid > .home-reveal:nth-child(6) { transition-delay: .40s; }
 
-/* â•â•â•â•â•â•â•â• responsive â•â•â•â•â•â•â•â• */
+/* ════════ responsive ════════ */
 @media (max-width: 1000px) {
   .home-hero__grid { grid-template-columns: 1fr; justify-items: center; text-align: left; }
   .home-hero__grid > .home-reveal:first-child { width: 100%; max-width: 640px; }
@@ -1891,7 +1893,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   .home-team { grid-template-columns: repeat(2, 1fr); }
   .home-visit__grid { grid-template-columns: 1fr; }
 }
-/* â‰¤1080px â€” mobile + tablet: the floating bottom dock is the single nav surface.
+/* ≤1080px — mobile + tablet: the floating bottom dock is the single nav surface.
    The top bar carries the brand + a lone theme toggle only; the inline nav,
    burger, sign-in and book all retire in favour of the dock below. */
 @media (max-width: 1080px) {
@@ -1903,7 +1905,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
      under the bar is footer-coloured instead of a bare page-bg gap */
   .home-foot { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
 
-  /* top bar â†’ brand + theme toggle only */
+  /* top bar → brand + theme toggle only */
   .home-header__actions, .home-nav ~ .home-header__actions {
     display: flex; align-items: center; margin-left: auto;
     padding-left: 0; border-left: 0; flex: none; }
@@ -1920,7 +1922,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
      on a tablet collapses to a narrow ~650px capsule with big side gutters, and
      `width:auto` on the flex row let it shrink to its content. Pin it to a fixed
      near-full-width inset pill so it spans the viewport (minus the inset) with a
-     solid (opaque) background â€” no hero text bleeding through. */
+     solid (opaque) background — no hero text bleeding through. */
   .home-header.is-scrolled .home-header__inner {
     max-width: none;
     width: calc(100% - 2 * clamp(16px, 3vw, 28px));
@@ -1930,22 +1932,22 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 }
 @media (max-width: 860px) {
   .home-look { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
-  /* reset the desktop 2Ã—2 hero tile to a single full-width row, else item-1 stays
+  /* reset the desktop 2×2 hero tile to a single full-width row, else item-1 stays
      two rows tall and the rest of the lookbook collapses into a cramped column */
   .home-look__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
   .home-look__item:nth-child(4) { grid-column: span 1; }
 }
 /* tablet: the stacked single-column layout turns the portrait hero/story
-   photos into ~700â€“860px monoliths â€” landscape crops keep them impactful
+   photos into ~700–860px monoliths — landscape crops keep them impactful
    without a full screen of image each */
 @media (min-width: 601px) and (max-width: 1000px) {
   .home-hero__frame { aspect-ratio: 16 / 11; }
-  /* width:100% is required â€” as a grid item, the auto margins beat the default
-     stretch and the box would otherwise shrink to fit-content (â‰ˆ0, its img-slot
+  /* width:100% is required — as a grid item, the auto margins beat the default
+     stretch and the box would otherwise shrink to fit-content (≈0, its img-slot
      child is absolutely positioned), collapsing the story photo entirely. */
   .home-story__art { aspect-ratio: 16 / 11; width: 100%; max-width: 640px; margin-inline: auto; }
 }
-/* mid-size: smooth the tabletâ†’phone transition so nothing jumps at one width */
+/* mid-size: smooth the tablet→phone transition so nothing jumps at one width */
 @media (max-width: 720px) {
   .home-section { padding-block: clamp(48px, 11vw, 72px); }   /* trim tall section gaps */
   .home-head { margin-bottom: clamp(28px, 7vw, 40px); }
@@ -1970,7 +1972,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   .home-info__card .v { font-size: 13.5px; }
   .home-visit__map { min-height: 240px; }                     /* shorter page; map is a teaser */
   .home-hours li { padding: 9px 0; font-size: 14px; }         /* 7 days without a screen of list */
-  /* the 3 story stats read as one trust row, not a tall list â€” a spaced
+  /* the 3 story stats read as one trust row, not a tall list — a spaced
      grid + viewport-scaled value size holds one row down to ~320px */
   .home-story__stats { display: grid; grid-template-columns: repeat(3, auto);
     justify-content: space-between; gap: 10px; }
@@ -1991,7 +1993,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   .home-brand__name b { font-size: 16px; }
 
   /* Mobile scrolled pill: tighter inset + height than the tablet rule above.
-     (The â‰¤1080px rule already pins width + opaque background.) */
+     (The ≤1080px rule already pins width + opaque background.) */
   .home-header.is-scrolled .home-header__inner {
     width: calc(100% - 24px);
     margin-inline: 12px;
@@ -2008,12 +2010,12 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 }
 
 
-/* â”€â”€ Luxury Load Splash Loader â”€â”€ */
+/* ── Luxury Load Splash Loader ── */
 .home-page-loader {
   position: fixed;
   inset: 0;
   /* Opaque hard fallback first (covers any --bg resolution edge case), then the
-     themed solid fill, then the gold glow on top â€” so the splash is never
+     themed solid fill, then the gold glow on top — so the splash is never
      see-through in either theme. */
   background-color: #F7F1E4;
   background-color: var(--bg, #F7F1E4);
@@ -2025,7 +2027,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   overflow: hidden;
   animation: pageLoaderFadeOut 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards;
 }
-/* Explicit dark fill â€” guarantees opacity even if --bg fails to cascade here. */
+/* Explicit dark fill — guarantees opacity even if --bg fails to cascade here. */
 [data-theme="dark"] .home-page-loader { background-color: #1C1611; }
 /* soft gold halo breathing behind the mark */
 .home-loader-glow {
@@ -2134,7 +2136,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   .home-loader-glow, .home-loader-mark, .home-loader-ring, .home-loader-bar i, .home-loader-content { animation: none; }
 }
 
-/* route-level loading.tsx â€” full-viewport branded spinner during navigation */
+/* route-level loading.tsx — full-viewport branded spinner during navigation */
 .home-route-loader {
   position: fixed;
   inset: 0;
@@ -2148,8 +2150,8 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 }
 .home-route-loader .home-loader-sub { margin-top: 0; }
 
-/* â”€â”€ Booking popup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-/* z-index above the route loader (1500) â€” see .pm__overlay note. */
+/* ── Booking popup ───────────────────────────────────────── */
+/* z-index above the route loader (1500) — see .pm__overlay note. */
 .home-modal { position:fixed; inset:0; z-index:1600; display:grid; place-items:center; padding:24px;
   grid-template-rows:minmax(0, 1fr); }
 .home-modal__backdrop { position:absolute; inset:0; background:rgba(20,14,8,.55); backdrop-filter:blur(3px); }
@@ -2170,7 +2172,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 .home-modal__body { padding:20px 22px; overflow-y:auto; flex:1; min-height:0; display:flex; flex-direction:column; }
 /* Confirmation: the content is a slim column, so on desktop shrink the whole
    panel to a compact success card (narrower + auto height) instead of a tall
-   empty box. Mobile keeps its full-screen layout (see the â‰¤768px block). */
+   empty box. Mobile keeps its full-screen layout (see the ≤768px block). */
 @media (min-width:769px) {
   .home-modal__panel:has(.home-modal__body--done) { max-width:560px; height:auto; max-height:90vh; }
 }
@@ -2184,7 +2186,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   .home-modal__panel { max-width:none; max-height:none; height:100dvh; border:0; border-radius:0; }
 }
 
-/* â”€â”€ FAQ accordion â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── FAQ accordion ───────────────────────────────────────── */
 .home-faq { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:10px; }
 .home-faq__item { border:1px solid var(--line); border-radius:var(--radius-md); background:var(--surface);
   transition:border-color .2s var(--ease); }
@@ -2195,11 +2197,11 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 .home-faq__icon { color:var(--accent-text); font-size:20px; line-height:1; flex:none; }
 .home-faq__a { margin:0; padding:0 20px 18px; color:var(--fg-2); line-height:1.6; }
 
-/* â”€â”€ Mobile carousels (multi-item rows) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ── Mobile carousels (multi-item rows) ────────────────────
    .home-car is a phone-only modifier: above 760px each section's own grid
    template rules the layout (forcing auto-flow column here squeezed the
    tablet grids into skinny columns and broke the lookbook mosaic). */
-/* "swipe â†’" cue: the mobile rails' shared affordance, written in the brand's
+/* "swipe →" cue: the mobile rails' shared affordance, written in the brand's
    italic accent voice. Desktop never sees it. */
 .home-swipe { display:none; }
 @keyframes home-swipe-nudge { 0%, 55%, 100% { transform:translateX(0); } 70% { transform:translateX(6px); } }
@@ -2221,13 +2223,13 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   .home-step { background:var(--surface); border-color:var(--line); }
   .home-step::after { display:none; }                 /* connector line is grid decor */
   .home-look__item { aspect-ratio:4 / 5; }            /* grid-auto-rows doesn't apply in a flex rail */
-  /* the story photo is an interior (landscape) â€” the tall 5/6 crop just adds
+  /* the story photo is an interior (landscape) — the tall 5/6 crop just adds
      a screen of scrolling on phones */
   .home-story__art { aspect-ratio:4 / 3; }
 
   .home-swipe { display:inline-flex; align-items:center; gap:8px; margin-top:10px;
     font-family:var(--font-display); font-style:italic; font-size:14.5px; color:var(--fg-muted); }
-  .home-swipe::after { content:"âŸ¶"; color:var(--accent-text); font-style:normal;
+  .home-swipe::after { content:"⟶"; color:var(--accent-text); font-style:normal;
     animation:home-swipe-nudge 2.4s var(--ease) infinite; }
   /* services: cue sits between the filter chips and the rail, so pull the
      chips' big desktop gap in and let the cue own the space */
@@ -2236,7 +2238,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 }
 @media (prefers-reduced-motion:reduce) { .home-swipe::after { animation:none; } }
 
-/* â”€â”€ Booking wizard inside the popup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Booking wizard inside the popup ─────────────────────── */
 .home-modal .book__card { display:grid; grid-template-columns:1.6fr 1fr; gap:0; border:0; box-shadow:none; background:transparent; overflow:visible; align-items:start; }
 /* Confirmation screen: no aside, so collapse to one centred column. */
 .home-modal .book__card--done { display:block; }
@@ -2247,7 +2249,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 .home-modal .step__hint { font-size:13px; color:var(--fg-muted); margin:0 0 16px; }
 .home-modal .choices { display:grid; gap:10px; }
 .home-modal .choices--2 { grid-template-columns:1fr 1fr; }
-/* photo-led service/stylist card â€” stable 3-part row, no word-wrap cram */
+/* photo-led service/stylist card — stable 3-part row, no word-wrap cram */
 .home-modal .choice { display:flex; align-items:center; gap:14px; width:100%; text-align:left;
   background:var(--surface); border:1.5px solid var(--line); border-radius:var(--radius-md);
   padding:10px 14px 10px 10px; cursor:pointer; font-family:inherit;
@@ -2263,7 +2265,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .home-modal .choice__price { flex:none; margin-left:auto; font-size:15px; font-weight:800; color:var(--accent-text); white-space:nowrap; }
 
-/* â”€â”€ stylist cards (clean & minimal) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ── stylist cards (clean & minimal) ───────────────────────
    Big round avatar, name + role, a rating only when it's real (no "New"
    clutter). Whole card is the tap target, with a checkmark badge + accent ring
    on select. "Any stylist" leads the grid as a first-class option. */
@@ -2287,7 +2289,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   color:var(--accent-text); background:color-mix(in srgb, var(--accent) 12%, var(--bg-2)); }
 .home-modal .stylist-card--any.sel .stylist-card__av--any { background:var(--accent-dark); color:#fff; }
 
-/* â”€â”€ rich (detailed) stylist card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ── rich (detailed) stylist card ──────────────────────────
    Avatar + name/role/rating on top, a specialty-tag row across the bottom with
    a hairline divider. Every card is the SAME height: the grid stretches cells,
    each card fills its cell, and the tag row is pinned to the bottom so the
@@ -2305,7 +2307,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 .home-modal .stylist-card__stars { font-weight:700; color:var(--accent-text); }
 .home-modal .stylist-card__reviews { color:var(--fg-muted); font-size:11.5px; }
 .home-modal .stylist-card__rating.is-new { color:var(--fg-muted); font-weight:600; font-size:11.5px; }
-/* specialty tags row â€” pinned to the bottom so every card lines up */
+/* specialty tags row — pinned to the bottom so every card lines up */
 .home-modal .stylist-card__tags { margin-top:auto; display:flex; flex-wrap:wrap; gap:6px;
   padding:11px 16px; border-top:1px solid var(--line); background:color-mix(in srgb, var(--bg-2) 55%, transparent); }
 /* the "Any stylist" bottom row reads as a highlight, not a specialty */
@@ -2319,7 +2321,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 /* keep the check badge clear of the tag row */
 .home-modal .stylist-card--rich .stylist-card__check { top:14px; right:14px; }
 
-/* â”€â”€ month calendar (Date step) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ── month calendar (Date step) ────────────────────────────
    A proper month grid with prev/next paging. Past + out-of-horizon + holiday
    days are disabled; holidays carry a dot and are not bookable. */
 .home-modal .cal { max-width:420px; }
@@ -2350,8 +2352,8 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 .home-modal .cal__legend { display:flex; align-items:center; gap:7px; margin:14px 0 0; font-size:12px; color:var(--fg-muted); }
 .home-modal .cal__legend-dot { width:8px; height:8px; border-radius:50%; background:var(--error); flex:none; }
 
-/* â”€â”€ multi-select service grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   Responsive auto-fit: 1 col on narrow, 2â€“3 as width allows. Cards stack the
+/* ── multi-select service grid ─────────────────────────────
+   Responsive auto-fit: 1 col on narrow, 2–3 as width allows. Cards stack the
    photo on top so text isn't cramped in a narrow column, and carry a checkmark
    badge that fills in when the service is part of the combined booking. */
 .home-modal .choices--grid { grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px; }
@@ -2369,13 +2371,13 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 .home-modal .choice--card.sel .choice__check svg { display:block; }
 .home-modal .choice--card .choice__check svg { display:none; }
 
-/* â”€â”€ fixed panel footer: total + Continue always reachable â”€â”€
+/* ── fixed panel footer: total + Continue always reachable ──
    The footer is a sibling of the scrolling body (a direct child of the flex
-   panel), so it's genuinely pinned to the bottom of the popup window â€” it never
+   panel), so it's genuinely pinned to the bottom of the popup window — it never
    scrolls with the service list, on desktop or mobile. */
 /* Centred action block: the running total on a small line, Continue centred
    below it. Back now lives in the modal header (see .home-modal__back), so the
-   footer holds just these two â€” clean and balanced on every screen. */
+   footer holds just these two — clean and balanced on every screen. */
 .home-modal .book__foot { flex:none; display:flex; flex-direction:column; align-items:center; gap:8px;
   padding:14px 22px; border-top:1px solid var(--line); background:var(--bg); }
 .home-modal .book__nav-total { display:flex; align-items:baseline; gap:10px; white-space:nowrap; }
@@ -2400,11 +2402,11 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 }
 @media (prefers-reduced-motion: reduce) { .home-modal .book__main.shake { animation:none; } }
 
-/* â”€â”€ sticky appointment summary on desktop â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ── sticky appointment summary on desktop ────────────────
    Keep "Your appointment" in view while the service grid scrolls. */
 .home-modal .book__aside { position:sticky; top:0; align-self:start; }
 
-/* â”€â”€ removable selected-service chips â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── removable selected-service chips ─────────────────────── */
 .sum-chips { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 4px; }
 .sum-chip { display:inline-flex; align-items:center; gap:6px; max-width:100%;
   font-size:12px; font-weight:600; color:var(--fg); background:var(--accent-tint);
@@ -2425,7 +2427,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   .home-modal .choices--2 { grid-template-columns:1fr; }
   /* Summary stays PINNED at the top while the list scrolls. It stays short
      because the chips sit in a single horizontal side-scroller (below) instead
-     of wrapping into a tall stack â€” so it never covers much of the list. */
+     of wrapping into a tall stack — so it never covers much of the list. */
   .home-modal .book__card, .home-modal .book__main, .home-modal .book__bar { min-width:0; }
   /* Polished stacked summary: an eyebrow + label on the left, big total on the
      right, then the chips as a swipeable row. Reads like a compact appointment
@@ -2455,7 +2457,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   .home-modal .book__bar-label .count { font-size:13.5px; font-weight:700; color:var(--fg);
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .home-modal .book__bar-total { flex:none; font-size:21px; font-weight:800; color:var(--accent-text); white-space:nowrap; }
-  /* stylist + when rows â€” mirror the desktop aside, shown once chosen */
+  /* stylist + when rows — mirror the desktop aside, shown once chosen */
   .home-modal .book__bar-meta { display:flex; flex-direction:column; gap:6px;
     padding-top:9px; border-top:1px solid color-mix(in srgb, var(--accent) 16%, var(--line)); }
   .home-modal .book__bar-metaitem { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
@@ -2481,7 +2483,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 }
 
 
-/* â”€â”€ legal pages (privacy / terms) â€” editorial two-column spread â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── legal pages (privacy / terms) — editorial two-column spread ──────── */
 .legal { background: var(--bg); min-height: 100vh; }
 .legal-wrap { width: min(1100px, 92vw); margin: 0 auto; }
 
@@ -2590,7 +2592,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
   .legal-back, .legal-index a, .legal-foot__links a { transition: none; }
 }
 
-/* â”€â”€ owner surface: the public site's cream + gold, over the shared shell â”€â”€
+/* ── owner surface: the public site's cream + gold, over the shared shell ──
    The admin console runs on a white canvas (.shell--admin overrides); the
    owner surface undoes that and uses the exact home-page palette, so moving
    between the site and the owner dashboard feels like one place. The serif
@@ -2680,7 +2682,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 @media (max-width: 480px) { .oday__time { min-width: 70px; font-size: 18px; } }
 @media (prefers-reduced-motion: reduce) { .otile { transition: none; } .otile:hover { transform: none; } }
 
-/* â”€â”€ staff desk v2 â”€â”€ */
+/* ── staff desk v2 ── */
 .sd-card-editor { margin-top: 18px; }
 .sd-card-preview {
   display: flex; justify-content: center; padding: 18px;
@@ -2760,7 +2762,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 .sd-act { font-size: 13px; padding: 7px 14px; }
 .sd-act--danger { color: var(--error); border-color: color-mix(in srgb, var(--error) 40%, var(--line)); }
 
-/* invite-staff â€” email + button row on People / Team */
+/* invite-staff — email + button row on People / Team */
 .invite-staff { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 0 0 18px; }
 .invite-staff input[type="email"] {
   flex: 1 1 240px; padding: 10px 14px; border: 1px solid var(--line);
@@ -2768,7 +2770,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 }
 .invite-staff .astatus { flex-basis: 100%; margin: 0; }
 
-/* sd-setup â€” onboarding banner while the card is hidden and untitled */
+/* sd-setup — onboarding banner while the card is hidden and untitled */
 .sd-setup {
   display: block; padding: 14px 18px; margin: 0 0 18px;
   border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
@@ -2779,7 +2781,7 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 .sd-setup b { display: block; margin-bottom: 2px; }
 .sd-setup span { font-size: 13.5px; color: var(--fg-muted); }
 
-/* â”€â”€ Sinhala (lang="si") typography overrides â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ── Sinhala (lang="si") typography overrides ─────────────────────────────
    Sinhala script has complex below-baseline glyphs; the tight line-heights
    and negative letter-spacing used for Latin display text clip or collide
    when Sinhala characters are rendered. These selectors reset the spacing
@@ -2904,3 +2906,195 @@ button.home-dock__sheet-item { border: 0; font-family: inherit; cursor: pointer;
 }
 
 
+
+/* ══ Admin panel shell + primitives ════════════════════════════════════
+   AdminShell and the admin form/list kit render these class names; without
+   them the panel fell back to unstyled browser defaults. Built only from the
+   shared tokens so light/dark and the brand palette stay in sync. */
+.admin { display:grid; grid-template-columns:260px minmax(0,1fr); min-height:100vh; min-height:100svh;
+  background:var(--bg); color:var(--fg); }
+
+/* sidebar */
+.aside { position:sticky; top:0; height:100vh; height:100dvh; display:flex; flex-direction:column; gap:18px;
+  padding:22px 16px 18px; background:var(--bg-2); border-right:1px solid var(--line); overflow-y:auto; }
+.aside__top { padding:0 6px 18px; border-bottom:1px solid var(--line); }
+.aside .nav__logo { display:flex; align-items:center; gap:12px; color:var(--fg); text-decoration:none; }
+.aside .nav__mark { width:40px; height:40px; flex:none; border-radius:12px;
+  box-shadow:0 8px 18px -10px color-mix(in srgb, var(--accent-dark) 70%, transparent); }
+.aside .nav__brand { display:flex; flex-direction:column; gap:3px; line-height:1.1; min-width:0; }
+.aside .nav__brand b { font-family:var(--font-display); font-size:22px; font-weight:600; letter-spacing:.01em; }
+.aside .nav__brand small { font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-muted); }
+.aside__nav { display:flex; flex-direction:column; gap:3px; }
+.aside__link { display:flex; align-items:center; padding:10px 14px; border-radius:11px; font-size:14px; font-weight:600;
+  color:var(--fg-2); text-decoration:none; transition:background .15s var(--ease), color .15s var(--ease); }
+.aside__link:hover { background:color-mix(in srgb, var(--accent) 9%, transparent); color:var(--fg); }
+.aside__link.is-active { background:var(--grad-gold); color:#fff;
+  box-shadow:0 6px 16px -8px color-mix(in srgb, var(--accent-dark) 70%, transparent); }
+.aside__link:focus-visible, .aside__user:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.aside__foot { margin-top:auto; display:grid; gap:10px; padding-top:16px; border-top:1px solid var(--line); }
+.aside__user { display:flex; align-items:center; gap:11px; width:100%; min-width:0; padding:10px 12px; text-align:left;
+  font:inherit; color:var(--fg); background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  box-shadow:var(--shadow-sm); cursor:pointer; transition:border-color .15s var(--ease); }
+.aside__user:hover { border-color:var(--accent); }
+.aside__avatar { width:38px; height:38px; flex:none; border-radius:50%; object-fit:cover; background:var(--bg-2);
+  box-shadow:0 0 0 2px var(--surface), 0 0 0 3.5px color-mix(in srgb, var(--accent) 55%, transparent); }
+.aside__who { display:grid; gap:2px; min-width:0; }
+.aside__name { font-size:13.5px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.aside__role { font-size:10px; font-weight:600; letter-spacing:.08em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-transform:uppercase; color:var(--fg-muted); }
+.aside__actions { display:flex; align-items:center; gap:8px; }
+.aside__signout { flex:1; min-width:0; margin:0; }
+.shell--admin .aside__signout .btn { width:100%; padding:9px 14px; font-size:12.5px; }
+
+/* main column */
+.amain { min-width:0; padding:32px 36px 56px; display:flex; flex-direction:column; }
+.amain > .apage { width:100%; max-width:1320px; margin-inline:auto; }
+.amain .ahead { margin-bottom:22px; }
+.h-sub { font-size:17px; font-weight:700; letter-spacing:-.01em; color:var(--fg); margin:0; }
+
+/* dashboard stat tiles */
+.astats { display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:14px; margin:4px 0 34px; }
+.astat { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-md); padding:18px 18px 16px;
+  box-shadow:var(--shadow-sm); }
+.astat--accent { background:linear-gradient(150deg, var(--accent-tint), var(--surface) 75%);
+  border-color:color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.astat__label { font-size:10.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--fg-muted); }
+.astat__value { margin-top:10px; font-family:var(--font-display); font-size:40px; font-weight:600; line-height:1; color:var(--fg); }
+.astat--accent .astat__value { color:var(--accent-text); }
+.astat__hint { margin-top:8px; font-size:12px; color:var(--fg-2); }
+
+/* list toolbar: search + filter chips */
+.atoolbar { display:flex; flex-wrap:wrap; align-items:center; gap:10px 12px; margin-bottom:16px; }
+.ainput.atoolbar__search { flex:1 1 260px; width:auto; min-width:0; border-radius:var(--radius-pill); padding:10px 16px 10px 40px;
+  background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2385776C' stroke-width='1.8' stroke-linecap='round' viewBox='0 0 16 16'%3E%3Ccircle cx='7' cy='7' r='5'/%3E%3Cpath d='m11 11 3.5 3.5'/%3E%3C/svg%3E") no-repeat 15px 50%; }
+.atoolbar__chips { display:flex; flex-wrap:wrap; gap:6px; }
+.achip { display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:12.5px; font-weight:600; padding:7px 12px;
+  border-radius:var(--radius-pill); border:1.5px solid var(--line); background:var(--surface); color:var(--fg-2);
+  cursor:pointer; white-space:nowrap; transition:border-color .15s var(--ease), background .15s var(--ease), color .15s var(--ease); }
+.achip span { min-width:20px; padding:1px 6px; border-radius:var(--radius-pill); background:var(--bg-2);
+  font-size:11px; font-weight:700; text-align:center; color:var(--fg-muted); }
+.achip:hover { border-color:color-mix(in srgb, var(--accent) 60%, var(--line)); color:var(--fg); }
+.achip.is-active { background:var(--accent-tint); border-color:var(--accent); color:var(--accent-text); }
+.achip.is-active span { background:var(--accent); color:#fff; }
+.achip:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+/* card / list view toggle */
+.aview-toggle { display:inline-flex; flex:none; border:1.5px solid var(--line); border-radius:var(--radius-pill);
+  overflow:hidden; background:var(--surface); }
+.aview-toggle__btn { display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:12px; font-weight:600;
+  padding:7px 12px; border:0; background:none; color:var(--fg-muted); cursor:pointer; }
+.aview-toggle__btn:hover { color:var(--fg); }
+.aview-toggle__btn.is-active { background:var(--accent-tint); color:var(--accent-text); }
+
+/* bookings table */
+.atable-wrap { overflow-x:auto; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-md);
+  box-shadow:var(--shadow-sm); }
+.atable { width:100%; min-width:760px; border-collapse:collapse; font-size:14px; }
+.atable thead th { text-align:left; padding:11px 16px; background:var(--bg-2); font-size:10.5px; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--fg-muted); white-space:nowrap; }
+.atable td { padding:12px 16px; border-top:1px solid var(--line); vertical-align:middle; color:var(--fg); }
+.atable tbody tr { transition:background .15s var(--ease); }
+.atable tbody tr:hover { background:color-mix(in srgb, var(--accent) 4%, transparent); }
+.atable__ref { font-family:var(--font-mono); font-size:12.5px; color:var(--accent-text); white-space:nowrap; }
+.atable__primary { font-weight:600; }
+.atable__secondary { font-size:12px; color:var(--fg-muted); }
+
+/* selects: custom chevron for every admin select */
+select.ainput, .aselect, .person select { appearance:none; -webkit-appearance:none; cursor:pointer; padding-right:34px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%2385776C' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 12px center; }
+.aselect { font:inherit; font-size:12.5px; font-weight:600; padding:7px 32px 7px 12px; border-radius:var(--radius-pill);
+  border:1.5px solid var(--line); background-color:var(--surface); color:var(--fg); }
+.aselect:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-tint); }
+.aselect:disabled { opacity:.6; cursor:progress; }
+.aselect--confirmed { background-color:color-mix(in srgb, var(--accent) 12%, var(--surface)); color:var(--accent-text); border-color:color-mix(in srgb, var(--accent) 35%, var(--line)); }
+.aselect--completed { background-color:var(--success-tint); color:var(--success); border-color:color-mix(in srgb, var(--success) 35%, var(--line)); }
+.aselect--cancelled { background-color:color-mix(in srgb, var(--error) 10%, var(--surface)); color:var(--error); border-color:color-mix(in srgb, var(--error) 35%, var(--line)); }
+.aselect--no_show { background-color:var(--gray-tint); color:var(--gray-text); }
+
+/* form kit */
+.afield__label { font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--fg-muted); }
+.afield__hint { font-size:11.5px; color:var(--fg-muted); }
+.aswitch__track { width:38px; height:22px; border-radius:var(--radius-pill); background:var(--line); position:relative;
+  flex:none; transition:background .2s var(--ease); }
+.aswitch__track::after { content:""; position:absolute; width:16px; height:16px; border-radius:50%; background:#fff;
+  top:3px; left:3px; transition:transform .2s var(--ease); box-shadow:0 1px 3px rgba(0,0,0,.25); }
+.aswitch input:checked + .aswitch__track { background:var(--accent); }
+.aswitch input:checked + .aswitch__track::after { transform:translateX(16px); }
+.aswitch input:focus-visible + .aswitch__track { box-shadow:0 0 0 3px var(--accent-tint); }
+.abtn-del { display:inline-flex; align-items:center; justify-content:center; font:inherit; font-size:13px; font-weight:700;
+  padding:8px 16px; border-radius:var(--radius-pill); cursor:pointer; color:var(--error);
+  background:color-mix(in srgb, var(--error) 10%, transparent); border:1.5px solid color-mix(in srgb, var(--error) 38%, transparent);
+  transition:background .15s var(--ease), border-color .15s var(--ease); }
+.abtn-del:hover { background:color-mix(in srgb, var(--error) 18%, transparent); border-color:var(--error); }
+.abtn-del:disabled { opacity:.6; cursor:progress; }
+
+/* media cards (MediaCard component) */
+.mcard__media img { width:100%; aspect-ratio:4 / 3; object-fit:cover; display:block; }
+.mcard__media--square img { aspect-ratio:1; }
+.mbadge { font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:var(--radius-pill);
+  background:color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter:blur(4px);
+  border:1px solid var(--line); color:var(--fg-2); }
+.mbadge--gold { color:var(--accent-text); border-color:color-mix(in srgb, var(--accent) 55%, var(--line)); }
+.mbadge--hidden { color:var(--error); border-color:color-mix(in srgb, var(--error) 45%, var(--line)); }
+.mcard__title { font-size:14.5px; font-weight:700; color:var(--fg); line-height:1.25; }
+.mcard__sub { font-size:12.5px; color:var(--fg-2); }
+.mcard__desc { margin:2px 0 0; font-size:12.5px; line-height:1.5; color:var(--fg-muted);
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.mcard__chips { display:flex; flex-wrap:wrap; gap:5px; margin-top:4px; }
+.mchip { font-size:11px; font-weight:600; color:var(--fg-2); background:var(--bg-2); padding:3px 9px; border-radius:var(--radius-pill); }
+.mcard__foot { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:0 14px 14px; margin-top:auto; }
+.mcard__foot form { margin:0; }
+
+/* tablet / phone: sidebar becomes a sticky top bar with scrollable tabs */
+@media (max-width:960px) {
+  .acrud { grid-template-columns:minmax(0,1fr); }
+  .acrud__form { order:-1; }
+  .acrud__form .acard { position:static; }
+  .acontent-grid { grid-template-columns:minmax(0,1fr); }
+}
+@media (max-width:860px) {
+  .admin { grid-template-columns:minmax(0,1fr); }
+  .aside { position:sticky; top:0; z-index:40; height:auto; flex-direction:row; flex-wrap:wrap; align-items:center;
+    gap:12px; padding:12px 16px 0; border-right:0; border-bottom:1px solid var(--line); overflow:visible;
+    background:color-mix(in srgb, var(--bg-2) 92%, transparent); backdrop-filter:blur(10px); }
+  .aside__top { flex:1 1 0; min-width:0; padding:0; border:0; }
+  .aside .nav__brand small { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .aside .nav__mark { width:34px; height:34px; border-radius:10px; }
+  .aside .nav__brand b { font-size:19px; }
+  .aside__foot { order:1; display:flex; align-items:center; gap:8px; margin:0; padding:0; border:0; }
+  .aside__user { width:auto; padding:3px; border-radius:50%; box-shadow:none; }
+  .aside__who { display:none; }
+  .aside__avatar { width:32px; height:32px; }
+  .aside__signout { flex:none; }
+  .shell--admin .aside__signout .btn { width:auto; padding:8px 14px; }
+  .aside__nav { order:2; flex:1 1 100%; flex-direction:row; gap:6px; overflow-x:auto; margin:0 -16px; padding:2px 16px 12px;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .aside__nav::-webkit-scrollbar { display:none; }
+  .aside__link { flex:none; padding:7px 14px; font-size:13px; border-radius:var(--radius-pill);
+    background:var(--surface); border:1px solid var(--line); }
+  .aside__link.is-active { border-color:transparent; }
+  .amain { padding:24px 16px 48px; }
+}
+@media (max-width:640px) {
+  .amain .ahead__title { font-size:24px; }
+  .astats { grid-template-columns:1fr 1fr; gap:10px; margin-bottom:26px; }
+  .astat { padding:14px; }
+  .astat__value { font-size:32px; }
+  .atoolbar__chips { flex:1 1 100%; flex-wrap:nowrap; overflow-x:auto; padding-bottom:4px; scrollbar-width:none; }
+  .atoolbar__chips::-webkit-scrollbar { display:none; }
+  .achip { flex:none; }
+  /* bookings table -> stacked cards, each cell labelled via data-label */
+  .atable-wrap { overflow:visible; background:transparent; border:0; box-shadow:none; }
+  .atable, .atable tbody, .atable tr, .atable td { display:block; width:100%; min-width:0; }
+  .atable thead { position:absolute; left:-9999px; }
+  .atable tr { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px;
+    margin-bottom:10px; box-shadow:var(--shadow-sm); }
+  .atable tbody tr:hover { background:var(--surface); }
+  .atable td { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:2px 14px; border:0; padding:5px 0; text-align:right; }
+  .atable__secondary { flex-basis:100%; }
+  .atable td::before { content:attr(data-label); flex:none; text-align:left; font-size:10.5px; font-weight:700;
+    letter-spacing:.06em; text-transform:uppercase; color:var(--fg-muted); }
+  .atable td:last-child { align-items:center; margin-top:6px; padding-top:10px; border-top:1px solid var(--line); }
+  .person__edit { flex-wrap:wrap; margin-left:0; width:100%; }
+  .person__edit select { flex:1 1 140px; }
+}

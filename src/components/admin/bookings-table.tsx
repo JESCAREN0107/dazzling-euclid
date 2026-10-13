@@ -92,23 +92,23 @@ export function BookingsTable({ rows, emptyLabel }: { rows: BookingRow[]; emptyL
             <tbody>
               {filtered.map((b) => (
                 <tr key={b.id}>
-                  <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-text)' }}>
+                  <td data-label="Código" className="atable__ref">
                     {b.reference}
                   </td>
-                  <td>{b.whenLabel}</td>
-                  <td>
-                    <div style={{ fontWeight: 500 }}>{b.customerName}</div>
-                    <div style={{ fontSize: 12, color: 'var(--muted)' }}>{b.customerPhone}</div>
+                  <td data-label="Fecha y hora">{b.whenLabel}</td>
+                  <td data-label="Cliente">
+                    <div className="atable__primary">{b.customerName}</div>
+                    <div className="atable__secondary">{b.customerPhone}</div>
                   </td>
-                  <td>{b.serviceName}</td>
-                  <td>{b.stylistName}</td>
-                  <td>
+                  <td data-label="Tratamiento">{b.serviceName}</td>
+                  <td data-label="Especialista">{b.stylistName}</td>
+                  <td data-label="Estado">
                     <select
                       aria-label={`Estado de ${b.reference}`}
                       defaultValue={b.status}
                       disabled={pending}
                       onChange={(e) => start(() => setBookingStatus(b.id, e.target.value))}
-                      className="aselect"
+                      className={`aselect aselect--${b.status}`}
                     >
                       {STATUSES.map((s) => (
                         <option key={s} value={s}>
