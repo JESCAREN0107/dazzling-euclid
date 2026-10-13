@@ -28,7 +28,7 @@ Aplicación web completa de promoción y reservación de citas en línea para **
 - **Consola de Administración (`/admin`)** — exclusiva para rol `admin`:
   - **Resumen (`/admin`)**: métricas del día y del mes en `MXN`, citas de hoy y próximas confirmadas.
   - **Agenda y Citas (`/admin/schedule`)**: búsqueda por folio/cliente/teléfono, filtros por especialista y estado (*Confirmada*, *Completada*, *No asistió*, *Cancelada*).
-  - **Horarios Bloqueados (`/admin/blocked-slots`)**: bloqueo de horas o días completos para todo el spa o para una especialista específica.
+  - **Horarios Bloqueados (dentro de `/admin/schedule`)**: bloqueo de rangos de horas para una especialista específica.
   - **Tratamientos y Precios (`/admin/services`)**: alta, edición y baja de tratamientos, categoría, beneficios, duración en minutos, precio en `MXN`, imagen, visibilidad y estado reservable.
   - **Especialistas (`/admin/stylists`)**: administración de perfiles públicos, foto, color distintivo, especialidades y estado en turno.
   - **Usuarios y Roles (`/admin/people`)**: creación de cuentas de personal/administrador y asignación de roles (`user`, `staff`, `admin`) vinculados a su perfil de especialista.
@@ -37,8 +37,8 @@ Aplicación web completa de promoción y reservación de citas en línea para **
   - **Reseñas (`/admin/reviews`)**: moderación de calificaciones verificadas de clientes.
 - **Panel de Especialista / Empleado (`/staff`)** — para roles `staff` y `admin`:
   - **Mi día (`/staff`)**: agenda del día de la especialista vinculada, indicador de siguiente cita en cabina, marcado de citas (*Completar*, *No asistió*, *Cancelar*) y reprogramación con selector de horarios libres.
-  - **Mi semana (`/staff/schedule`)**: vista de los próximos 7 días.
-  - **Mi perfil (`/staff/account`)**: edición de foto, datos de contacto, contraseña y ficha pública de especialista.
+  - **Bloqueos y ficha pública (dentro de `/staff`)**: bloqueo de horarios propios y edición de especialidad y etiquetas.
+  - **Mi cuenta (`/account/settings`)**: edición de foto, datos de contacto y contraseña.
 
 ---
 
@@ -64,7 +64,8 @@ Aplicación web completa de promoción y reservación de citas en línea para **
 │   └── middleware.ts           # Refresco de sesión Supabase SSR y protección de rutas
 ├── supabase/
 │   ├── migrations/
-│   │   └── 0001_schema.sql     # Esquema PostgreSQL completo, constraint anti-traslapes, RPC y políticas RLS
+│   │   ├── 0001_schema.sql     # Esquema PostgreSQL completo, constraint anti-traslapes, RPC y políticas RLS
+│   │   └── 0002_security_fixes.sql # Endurecimiento RLS, reseñas por usuario y buckets de Storage
 │   └── seed.sql                # Catálogo inicial de tratamientos, especialistas, horarios y galería (sin citas falsas)
 ├── .env.example                # Plantilla documentada de variables de entorno
 ├── next.config.ts              # Configuración de Next.js 15
@@ -81,7 +82,7 @@ Copia `.env.example` a `.env.local` para desarrollo local, o configura las sigui
 | :--- | :--- | :---: | :--- |
 | `NEXT_PUBLIC_SUPABASE_URL` | Pública (Navegador + Servidor) | Sí | URL de tu proyecto en Supabase (`https://<project-ref>.supabase.co`). |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Pública (Navegador + Servidor) | Sí | Clave anónima/publicable (`anon` / `publishable`). Respeta las políticas RLS. |
-| `SUPABASE_SERVICE_ROLE_KEY` | **Privada (Solo Servidor)** | Sí (Producción) | Clave `service_role` de Supabase. **Nunca** uses el prefijo `NEXT_PUBLIC_`. Está protegida con `import 'server-only'` en `src/lib/supabase/admin.ts` y permite confirmar reservas de invitados, subir archivos y crear cuentas de personal desde `/admin/people`. |
+| `SUPABASE_SERVICE_ROLE_KEY` | **Privada (Solo Servidor)** | **Sí** | Clave `service_role` de Supabase. **Nunca** uses el prefijo `NEXT_PUBLIC_`. Está protegida con `import 'server-only'` en `src/lib/supabase/admin.ts`. Sin ella no se pueden registrar citas (la tabla no admite inserciones públicas) y en producción la app lanza un error. También permite subir archivos y crear cuentas de personal desde `/admin/people`. |
 | `NEXT_PUBLIC_SITE_URL` | Pública | Recomendada | URL canónica del sitio desplegado (ej. `https://tu-dominio.vercel.app`) para enlaces de correo de autenticación y SEO. |
 
 ---
@@ -92,7 +93,8 @@ Copia `.env.example` a `.env.local` para desarrollo local, o configura las sigui
    - Entra a [database.new](https://database.new) y crea un nuevo proyecto.
 2. **Ejecutar el esquema SQL**:
    - Abre **SQL Editor** en el panel de Supabase.
-   - Copia y ejecuta el contenido completo de [`supabase/migrations/0001_schema.sql`](./supabase/migrations/0001_schema.sql).
+   - Copia y ejecuta el contenido completo de [`supabase/migrations/0001_schema.sql`](./supabase/migrations/0001_schema.sql) y después [`supabase/migrations/0002_security_fixes.sql`](./supabase/migrations/0002_security_fixes.sql).
+   - Si tu base de datos ya existía, basta con ejecutar `0002_security_fixes.sql` (es idempotente).
 3. **Cargar el catálogo inicial (opcional pero recomendado)**:
    - En el **SQL Editor**, ejecuta [`supabase/seed.sql`](./supabase/seed.sql) para poblar los tratamientos iniciales en `MXN`, especialistas, horarios de apertura y galería (no inserta ninguna cita ni cliente de prueba).
 4. **Crear tu primer usuario Administrador**:

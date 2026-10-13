@@ -112,12 +112,14 @@ export function BookingsPanel({
 
   function confirmReschedule(b: Row) {
     if (!pickedTime) return;
-    const duration = b.services?.duration_min ?? 60;
+    const duration = Math.round(
+      (new Date(b.ends_at).getTime() - new Date(b.starts_at).getTime()) / 60000,
+    );
     const startMin = hhmmToMinute(pickedTime);
     const newStart = toUtcInstant(dateStr, startMin);
     const newEnd = toUtcInstant(dateStr, startMin + duration);
     startTransition(async () => {
-      const res = await rescheduleMyBooking(b.id, newStart, newEnd);
+      const res = await rescheduleMyBooking(b.id, dateStr, pickedTime);
       if ('error' in res) setError(res.error);
       else {
         setData((cur) =>

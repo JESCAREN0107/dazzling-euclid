@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { bookingInputSchema, type BookingInput } from '@/lib/validators';
 import { computeAvailableSlots, type MinuteInterval } from '@/lib/availability';
 import { SPA_TZ, toUtcInstant, nowInSpaTz } from '@/lib/time';
@@ -294,21 +295,31 @@ export async function createBooking(raw: BookingInput): Promise<CreateBookingRes
         break;
       }
     }
+    if (!assignedStylistId) {
+      return {
+        ok: false,
+        error: 'Ya no hay especialistas libres en ese horario. Por favor elige otro horario.',
+      };
+    }
   } else {
     const { data: st } = await sb
       .from('stylists')
       .select('name')
       .eq('id', assignedStylistId)
+      .eq('is_active', true)
       .maybeSingle();
-    stylistName =
-      st?.name ??
-      DEFAULT_STYLISTS.find((s) => s.id === assignedStylistId)?.name ??
-      'Especialista Lumière';
+    if (!st) {
+      return { ok: false, error: 'La especialista seleccionada no está disponible.' };
+    }
+    stylistName = st.name;
   }
 
+  // La inserción se hace con service_role: la tabla no admite INSERT público
+  // (ver supabase/migrations/0002_security_fixes.sql); toda la validación ocurre arriba.
+  const admin = createAdminClient();
   for (let attempt = 0; attempt < 3; attempt++) {
     const reference = makeReference();
-    const { error } = await sb.from('bookings').insert({
+    const { error } = await admin.from('bookings').insert({
       reference,
       service_id: input.serviceIds[0]!,
       service_ids: input.serviceIds,
