@@ -1,12 +1,11 @@
 'use server';
 import { revalidatePath } from 'next/cache';
 import { createAdminClient } from '@/lib/supabase/admin';
-import { createClient } from '@/lib/supabase/server';
 import { getUser } from '@/lib/supabase/auth';
 import { canModifyBooking } from '@/lib/account/booking-rules';
 import { clampStars, computeRemovedRating, computeUpdatedRating } from '@/lib/reviews';
 import { getMyBookings, getBusinessHours } from '@/lib/queries';
-import { getAvailability } from '@/app/book/actions';
+import { computeAvailability } from '@/lib/booking/day-availability';
 import { SPA_TZ, toUtcInstant } from '@/lib/time';
 
 type Result = { ok: true } | { error: string };
@@ -36,6 +35,58 @@ export async function cancelMyBooking(bookingId: string): Promise<Result> {
   return { ok: true };
 }
 
+type ReschedulableRow = {
+  id: string;
+  user_id: string | null;
+  status: string;
+  starts_at: string;
+  ends_at: string;
+  stylist_id: string | null;
+  service_id: string;
+  service_ids: string[] | null;
+};
+
+async function loadOwnBooking(
+  bookingId: string,
+  userId: string,
+): Promise<ReschedulableRow | null> {
+  const admin = createAdminClient();
+  const { data: row } = await admin
+    .from('bookings')
+    .select('id,user_id,status,starts_at,ends_at,stylist_id,service_id,service_ids')
+    .eq('id', bookingId)
+    .single();
+  if (!row || !canModifyBooking(row, userId, Date.now()).ok) return null;
+  return row as ReschedulableRow;
+}
+
+// Horarios válidos para mover una cita: conserva su duración original y no
+// cuenta su propio intervalo actual como ocupado.
+async function rescheduleSlots(row: ReschedulableRow, date: string): Promise<string[]> {
+  const serviceIds =
+    row.service_ids && row.service_ids.length > 0 ? row.service_ids : [row.service_id];
+  const { slots } = await computeAvailability(
+    { serviceIds, stylistId: row.stylist_id, date },
+    { durationMin: bookingDurationMin(row), ignore: row },
+  );
+  return slots;
+}
+
+function bookingDurationMin(row: { starts_at: string; ends_at: string }): number {
+  return Math.round((new Date(row.ends_at).getTime() - new Date(row.starts_at).getTime()) / 60000);
+}
+
+export async function getRescheduleSlots(
+  bookingId: string,
+  date: string,
+): Promise<{ slots: string[] }> {
+  const user = await getUser();
+  if (!user || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return { slots: [] };
+  const row = await loadOwnBooking(bookingId, user.id);
+  if (!row) return { slots: [] };
+  return { slots: await rescheduleSlots(row, date) };
+}
+
 export async function rescheduleMyBooking(
   bookingId: string,
   date: string,
@@ -47,34 +98,19 @@ export async function rescheduleMyBooking(
     return { error: 'Elige una fecha y horario válidos.' };
   }
 
-  const admin = createAdminClient();
-  const { data: row } = await admin
-    .from('bookings')
-    .select('id,user_id,status,starts_at,ends_at,stylist_id,service_id,service_ids')
-    .eq('id', bookingId)
-    .single();
-  if (!row) return { error: 'Cita no encontrada.' };
+  const row = await loadOwnBooking(bookingId, user.id);
+  if (!row) return { error: 'Esta cita ya no puede reprogramarse.' };
 
-  const decision = canModifyBooking(row, user.id, Date.now());
-  if (!decision.ok) return { error: 'Esta cita ya no puede reprogramarse.' };
-
-  // El servidor calcula el nuevo rango: se conserva la duración original y el
-  // horario debe estar libre según horario del spa, bloqueos y otras citas.
-  const serviceIds =
-    row.service_ids && row.service_ids.length > 0 ? row.service_ids : [row.service_id];
-  const { slots } = await getAvailability({ serviceIds, stylistId: row.stylist_id, date });
-  if (!slots.includes(time)) {
+  if (!(await rescheduleSlots(row, date)).includes(time)) {
     return { error: 'Ese horario ya no está disponible — elige otro.' };
   }
 
-  const durationMin = Math.round(
-    (new Date(row.ends_at).getTime() - new Date(row.starts_at).getTime()) / 60000,
-  );
   const [h, m] = time.split(':').map(Number);
   const startMinute = h! * 60 + m!;
   const newStartsAt = toUtcInstant(date, startMinute, SPA_TZ);
-  const newEndsAt = toUtcInstant(date, startMinute + durationMin, SPA_TZ);
+  const newEndsAt = toUtcInstant(date, startMinute + bookingDurationMin(row), SPA_TZ);
 
+  const admin = createAdminClient();
   const { error } = await admin
     .from('bookings')
     .update({ starts_at: newStartsAt, ends_at: newEndsAt })
@@ -212,8 +248,9 @@ export async function listMyBookings(): Promise<MyBookingsData> {
     getBusinessHours(),
   ]);
 
-  const sb = await createClient();
-  const { data: revRows } = await sb
+  // user_id no es legible por la API pública (0003); se consulta con service_role.
+  const admin = createAdminClient();
+  const { data: revRows } = await admin
     .from('stylist_reviews')
     .select('booking_id, rating, comment')
     .eq('user_id', user.id)

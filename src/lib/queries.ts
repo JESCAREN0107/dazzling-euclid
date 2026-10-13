@@ -307,7 +307,9 @@ export async function getRecentReviews(limit = 6): Promise<StylistReviewWithStyl
     const sb = await createClient();
     const { data } = await sb
       .from('stylist_reviews')
-      .select('*, stylists(name)')
+      .select(
+        'id, stylist_id, booking_id, customer_name, rating, comment, likes_count, reports_count, created_at, stylists(name)',
+      )
       .order('created_at', { ascending: false })
       .limit(limit);
     type Row = StylistReview & { stylists: { name: string } | null };

@@ -2,13 +2,13 @@
 import { useEffect, useState, useTransition } from 'react';
 import {
   cancelMyBooking,
+  getRescheduleSlots,
   rescheduleMyBooking,
   submitMyReview,
   deleteMyReview,
   listMyBookings,
   type MyBookingsData,
 } from '@/app/account/actions';
-import { getAvailability } from '@/app/book/actions';
 import { canModifyBooking } from '@/lib/account/booking-rules';
 import { minutesToLabel } from '@/lib/format';
 import { SPA_TZ, toUtcInstant } from '@/lib/time';
@@ -100,13 +100,7 @@ export function BookingsPanel({
   }
 
   async function loadSlots(b: Row, d: string) {
-    const serviceIds =
-      b.service_ids && b.service_ids.length > 0 ? b.service_ids : [b.service_id];
-    const res = await getAvailability({
-      serviceIds,
-      stylistId: b.stylist_id,
-      date: d,
-    });
+    const res = await getRescheduleSlots(b.id, d);
     setSlots(res.slots);
   }
 

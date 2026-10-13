@@ -65,7 +65,8 @@ Aplicación web completa de promoción y reservación de citas en línea para **
 ├── supabase/
 │   ├── migrations/
 │   │   ├── 0001_schema.sql     # Esquema PostgreSQL completo, constraint anti-traslapes, RPC y políticas RLS
-│   │   └── 0002_security_fixes.sql # Endurecimiento RLS, reseñas por usuario y buckets de Storage
+│   │   ├── 0002_security_fixes.sql # Endurecimiento RLS, reseñas por usuario y buckets de Storage
+│   │   └── 0003_review_author_privacy.sql # Oculta el autor (user_id) de las reseñas en la API pública
 │   └── seed.sql                # Catálogo inicial de tratamientos, especialistas, horarios y galería (sin citas falsas)
 ├── .env.example                # Plantilla documentada de variables de entorno
 ├── next.config.ts              # Configuración de Next.js 15
@@ -93,8 +94,8 @@ Copia `.env.example` a `.env.local` para desarrollo local, o configura las sigui
    - Entra a [database.new](https://database.new) y crea un nuevo proyecto.
 2. **Ejecutar el esquema SQL**:
    - Abre **SQL Editor** en el panel de Supabase.
-   - Copia y ejecuta el contenido completo de [`supabase/migrations/0001_schema.sql`](./supabase/migrations/0001_schema.sql) y después [`supabase/migrations/0002_security_fixes.sql`](./supabase/migrations/0002_security_fixes.sql).
-   - Si tu base de datos ya existía, basta con ejecutar `0002_security_fixes.sql` (es idempotente).
+   - Copia y ejecuta el contenido completo de [`supabase/migrations/0001_schema.sql`](./supabase/migrations/0001_schema.sql) y después, en orden, [`0002_security_fixes.sql`](./supabase/migrations/0002_security_fixes.sql) y [`0003_review_author_privacy.sql`](./supabase/migrations/0003_review_author_privacy.sql).
+   - Si tu base de datos ya existía, ejecuta solo las migraciones que falten (son idempotentes).
 3. **Cargar el catálogo inicial (opcional pero recomendado)**:
    - En el **SQL Editor**, ejecuta [`supabase/seed.sql`](./supabase/seed.sql) para poblar los tratamientos iniciales en `MXN`, especialistas, horarios de apertura y galería (no inserta ninguna cita ni cliente de prueba).
 4. **Crear tu primer usuario Administrador**:
