@@ -41,7 +41,7 @@ export const storySchema = z.object({
 const statTile = (n: string, l: string) =>
   z
     .object({
-      n: str(n, 20),
+      n: str(n, 40),
       l: str(l, 60),
     })
     .default({ n, l });
