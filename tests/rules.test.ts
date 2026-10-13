@@ -64,3 +64,12 @@ describe('computeAvailableSlots', () => {
     ).toEqual([]);
   });
 });
+
+describe('cleanEnv', () => {
+  it('quita BOM y espacios de las variables de entorno', async () => {
+    const { cleanEnv } = await import('@/lib/env');
+    expect(cleanEnv('﻿https://x.supabase.co ')).toBe('https://x.supabase.co');
+    expect(cleanEnv('  ')).toBeUndefined();
+    expect(cleanEnv(undefined)).toBeUndefined();
+  });
+});
