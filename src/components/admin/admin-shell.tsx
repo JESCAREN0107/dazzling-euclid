@@ -36,7 +36,7 @@ export function AdminShell({
   const src = avatarSrc(userMetadata, seed);
 
   return (
-    <div className="admin">
+    <div className="admin shell--admin">
       <aside className="aside">
         <div className="aside__top">
           <Link href="/" className="nav__logo">
@@ -58,6 +58,7 @@ export function AdminShell({
                 key={item.href}
                 href={item.href}
                 className={`aside__link${active ? ' is-active' : ''}`}
+                aria-current={active ? 'page' : undefined}
               >
                 {item.label}
               </Link>
@@ -68,36 +69,25 @@ export function AdminShell({
         <div className="aside__foot">
           <button
             type="button"
-            className="aside__user aside__user--btn"
+            className="aside__user"
             onClick={() => setProfileOpen(true)}
             title="Editar perfil"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={src} alt="" className="aside__avatar" />
-            <div>
-              <div style={{ fontWeight: 600, fontSize: 13 }}>
+            <span className="aside__who">
+              <span className="aside__name">
                 {profile.fullName ?? profile.email ?? 'Administrador'}
-              </div>
-              <div
-                style={{
-                  fontSize: 11,
-                  color: 'var(--muted)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.1em',
-                }}
-              >
+              </span>
+              <span className="aside__role">
                 {profile.role === 'admin' ? 'Administrador' : 'Empleado'} · editar
-              </div>
-            </div>
+              </span>
+            </span>
           </button>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div className="aside__actions">
             <ThemeToggle />
-            <form action={signOut} style={{ flex: 1 }}>
-              <button
-                className="btn btn--ghost"
-                style={{ width: '100%', padding: '9px 14px', fontSize: 12 }}
-                type="submit"
-              >
+            <form action={signOut} className="aside__signout">
+              <button className="btn btn--ghost" type="submit">
                 Salir
               </button>
             </form>
