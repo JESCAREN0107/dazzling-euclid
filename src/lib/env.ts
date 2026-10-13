@@ -1,4 +1,12 @@
+// Quita espacios y el BOM (\uFEFF) que algunos editores añaden al pegar valores en Vercel;
+// con él la URL y las claves de Supabase dejan de ser válidas.
+export function cleanEnv(value: string | undefined): string | undefined {
+  const v = value?.replace(/^\uFEFF/, '').trim();
+  return v ? v : undefined;
+}
+
 function required(name: string, value: string | undefined): string {
+  value = cleanEnv(value);
   if (!value) {
     throw new Error(
       `Falta la variable de entorno ${name}. Copia .env.example a .env.local y configura las credenciales de tu proyecto Supabase.`,
@@ -21,7 +29,7 @@ export const env = {
     );
   },
   get siteUrl() {
-    const raw = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://dazzling-euclid.vercel.app');
+    const raw = cleanEnv(process.env.NEXT_PUBLIC_SITE_URL) || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://dazzling-euclid.vercel.app');
     const withProto = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
     return withProto.replace(/\/$/, '');
   },
@@ -31,6 +39,5 @@ export function getServiceRoleKey(): string | null {
   if (typeof window !== 'undefined') {
     throw new Error('SUPABASE_SERVICE_ROLE_KEY es estrictamente privada y solo puede leerse en el servidor.');
   }
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
-  return key ? key : null;
+  return cleanEnv(process.env.SUPABASE_SERVICE_ROLE_KEY) ?? null;
 }
